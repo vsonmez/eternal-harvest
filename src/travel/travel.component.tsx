@@ -8,6 +8,7 @@ import useTravelStore from "../store/hooks/use-travel-store.hook";
 import useToastrStore from "../store/hooks/use-toastr-store.hook";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import usePlayerHungerStore from "../store/hooks/use-player-hunger-store.hook";
+import useMessageStore from "../store/hooks/use-message-store.hook";
 
 type Props = {
   onClose: () => void;
@@ -16,9 +17,10 @@ const Travel: React.FC<Props> = ({ onClose }) => {
   const { decreaseHungerValue, playerHungerValue } = usePlayerHungerStore();
   const { currentLocation, destination, setCurrentLocation, setDestination } = useTravelStore();
   const [selectedLocation, setSelectedLocation] = React.useState<CityLocations>(currentLocation);
-  const { setIsBusy } = useGlobalStore();
+  const { setIsBusy, setSkillActionType } = useGlobalStore();
   const { count, isActive, startCountdown } = useCountdown(travelConstants.travelTime);
   const { addToastrMessage } = useToastrStore();
+  const { addMessage } = useMessageStore();
 
   const handleTravel = React.useCallback(
     (location: CityLocations) => {
@@ -42,7 +44,7 @@ const Travel: React.FC<Props> = ({ onClose }) => {
         });
       }
     },
-    [setIsBusy, startCountdown, selectedLocation, setDestination, decreaseHungerValue, addToastrMessage, playerHungerValue, currentLocation]
+    [currentLocation, decreaseHungerValue, playerHungerValue, selectedLocation, setIsBusy, startCountdown, setDestination, addToastrMessage]
   );
 
   React.useEffect(() => {
@@ -50,9 +52,15 @@ const Travel: React.FC<Props> = ({ onClose }) => {
       setIsBusy(false);
       setCurrentLocation(selectedLocation);
       setDestination(undefined);
+      setSkillActionType(undefined);
+      addMessage({
+        text: `Arrived to ${travelConstants.travelLocations[selectedLocation]}`,
+        type: "info",
+      });
       onClose();
     }
-  }, [count, isActive, setIsBusy, setCurrentLocation, setDestination, onClose, selectedLocation]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [count, isActive, selectedLocation]);
 
   return (
     <DialogComponent onClose={onClose} title="Travel" className="travel" showGold showHunger>
