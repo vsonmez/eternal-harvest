@@ -1,13 +1,47 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body, #root {
+    @apply h-full;
+}
+html {
+    @apply w-[375px] m-auto;
+}
+dialog::backdrop {
+    @apply backdrop-blur-sm bg-no-repeat bg-cover bg-center;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.woodcutter{
+    background-image: url('../public/images/woodcutter.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+}
+.begging{
+    background-image: url('../public/images/begging.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 -150px;
+}
+
+.market::backdrop{
+    background-image: url('../public/images/market.jpeg');
+}
+
+.inventory::backdrop {
+    background-image: url('../public/images/inventory.jpeg');
+}
+
+.equipment::backdrop {
+    background-image: url('../public/images/equipment.jpeg');
+}
+
+.gift::backdrop {
+    background-image: url('../public/images/reward-chest.jpeg');
+}
+
+.travel::backdrop {
+    background-image: url('../public/images/travel.jpg');
 }

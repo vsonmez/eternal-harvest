@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import HeaderComponent from "./ui/header/header.component";
+import SkillActionsComponent from "./skill-actions/skill-actions.component";
+import MessageListComponent from "./message/message-list.component";
+import useTimeTrackerWithReward from "./custom-hooks/use-time-tracker-with-reawrd.hook";
+import FooterComponent from "./ui/footer/footer.component";
+import LcoationInfoComponent from "./travel/lcoation-info.component";
 
 function App() {
+  useTimeTrackerWithReward();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="h-screen flex flex-col m-auto">
+      <HeaderComponent />
+      <div className="h-full flex flex-col justify-between overflow-auto p-2 gap-2">
+        <LcoationInfoComponent />
+        <SkillActionsComponent />
+        <MessageListComponent />
+      </div>
+      <FooterComponent />
     </div>
   );
 }
 
-export default App;
+export default React.memo(App);

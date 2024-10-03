@@ -1,0 +1,56 @@
+import React from "react";
+import ButtonComponent from "../ui/button.component";
+import usePlayerBagStore from "../store/hooks/use-player-bag-store.hook";
+import usePlayerGoldStore from "../store/hooks/use-player-gold-store.hook";
+import useToastrStore from "../store/hooks/use-toastr-store.hook";
+import BagItem from "../items/models/bag-item.type";
+import getItemDef from "../utils/get-item-def.util";
+import FixedNumberComponent from "../ui/fixed-number.component";
+import coinDrooppedSound from "../sounds/coin-dropped.mp3";
+import useSound from "../custom-hooks/use-sound.hook";
+
+type Props = {
+  item: BagItem;
+  disabled?: boolean;
+};
+
+const SellButton: React.FC<Props> = ({ item, disabled }) => {
+  const { play } = useSound({ sound: coinDrooppedSound });
+  const itemDef = React.useMemo(() => getItemDef(item.defName), [item]);
+  const { addToastrMessage } = useToastrStore();
+  const { removeItemFromPlayerBag } = usePlayerBagStore();
+  const { addGold } = usePlayerGoldStore();
+  const isDisabled = React.useMemo(() => {
+    if (item.isEquipped && item.amount === 1) {
+      return true;
+    }
+    if (item.isLocked) {
+      return true;
+    }
+  }, [item]);
+
+  const handleSell = React.useCallback(() => {
+    play();
+    addGold(itemDef.price / 2);
+    removeItemFromPlayerBag({
+      ...item,
+      amount: 1,
+    });
+
+    addToastrMessage({
+      type: "info",
+      text: `Successfully sold ${itemDef.name}`,
+    });
+  }, [item, addGold, removeItemFromPlayerBag, addToastrMessage, itemDef, play]);
+
+  return (
+    <ButtonComponent className="flex gap-2" disabled={disabled || isDisabled} onClick={handleSell}>
+      <span>Sell</span>
+      <span>
+        (<FixedNumberComponent number={itemDef.price / 2} /> gp)
+      </span>
+    </ButtonComponent>
+  );
+};
+
+export default React.memo(SellButton);
