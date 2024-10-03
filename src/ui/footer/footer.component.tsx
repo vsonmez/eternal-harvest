@@ -7,8 +7,13 @@ import SkillActionSelectComponent from "../../skill-actions/skill-action-select.
 import GiftButtonComponent from "./gift-button.component";
 import { ArchiveBoxIcon, ArrowsUpDownIcon, BoltIcon, BuildingStorefrontIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/outline";
 import TravelComponent from "../../travel/travel.component";
+import useTravelStore from "../../store/hooks/use-travel-store.hook";
+import useMessageStore from "../../store/hooks/use-message-store.hook";
+import travelConstants from "../../constants/travel.constants";
 
 const Footer = () => {
+  const { currentLocation } = useTravelStore();
+  const { addMessage } = useMessageStore();
   const initialShowState: { [key in DialogTypes]: boolean } = React.useMemo(() => {
     return {
       market: false,
@@ -33,12 +38,19 @@ const Footer = () => {
 
   const handleShow = React.useCallback(
     (key: DialogTypes) => {
+      if (key === "market" && currentLocation !== "marketPlace") {
+        addMessage({
+          text: `You can only see the Market in the ${travelConstants.travelLocations.marketPlace}.`,
+          type: "warning",
+        });
+        return;
+      }
       setShow({
         ...initialShowState,
         [key]: !show[key],
       });
     },
-    [show, initialShowState]
+    [show, initialShowState, currentLocation, addMessage]
   );
 
   const handleClose = React.useCallback(() => {

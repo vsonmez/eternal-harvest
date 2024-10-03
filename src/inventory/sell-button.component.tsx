@@ -8,6 +8,8 @@ import getItemDef from "../utils/get-item-def.util";
 import FixedNumberComponent from "../ui/fixed-number.component";
 import coinDrooppedSound from "../sounds/coin-dropped.mp3";
 import useSound from "../custom-hooks/use-sound.hook";
+import useTravelStore from "../store/hooks/use-travel-store.hook";
+import travelConstants from "../constants/travel.constants";
 
 type Props = {
   item: BagItem;
@@ -15,6 +17,7 @@ type Props = {
 };
 
 const SellButton: React.FC<Props> = ({ item, disabled }) => {
+  const { currentLocation } = useTravelStore();
   const { play } = useSound({ sound: coinDrooppedSound });
   const itemDef = React.useMemo(() => getItemDef(item.defName), [item]);
   const { addToastrMessage } = useToastrStore();
@@ -30,6 +33,13 @@ const SellButton: React.FC<Props> = ({ item, disabled }) => {
   }, [item]);
 
   const handleSell = React.useCallback(() => {
+    if (currentLocation !== "marketPlace") {
+      addToastrMessage({
+        type: "warning",
+        text: `You can only sell items in the ${travelConstants.travelLocations.marketPlace}.`,
+      });
+      return;
+    }
     play();
     addGold(itemDef.price / 2);
     removeItemFromPlayerBag({
@@ -41,7 +51,7 @@ const SellButton: React.FC<Props> = ({ item, disabled }) => {
       type: "info",
       text: `Successfully sold ${itemDef.name}`,
     });
-  }, [item, addGold, removeItemFromPlayerBag, addToastrMessage, itemDef, play]);
+  }, [item, addGold, removeItemFromPlayerBag, addToastrMessage, itemDef, play, currentLocation]);
 
   return (
     <ButtonComponent className="flex gap-2" disabled={disabled || isDisabled} onClick={handleSell}>

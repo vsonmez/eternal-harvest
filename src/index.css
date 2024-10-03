@@ -7,7 +7,7 @@ body, #root {
     @apply h-full;
 }
 html {
-    @apply w-[375px] m-auto;
+    @apply w-[375px] m-auto bg-slate-950;
 }
 dialog::backdrop {
     @apply backdrop-blur-sm bg-no-repeat bg-cover bg-center;
