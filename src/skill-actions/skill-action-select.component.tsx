@@ -63,44 +63,44 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
       <ul className="flex flex-col gap-3">
         <li>
           <ButtonComponent onClick={() => handleSkillAction("woodcutting")}>
-            <img src="/images/woodcutter.jpeg" alt="" className="w-32" />
+            <img src="./images/woodcutter.jpeg" alt="" className="w-32" />
             <span>Woodcutting</span>
           </ButtonComponent>
         </li>
         <li>
           <ButtonComponent onClick={() => handleSkillAction("begging")}>
-            <img src="/images/begging.jpeg" alt="" className="w-32" />
+            <img src="./images/begging.jpeg" alt="" className="w-32" />
             <span>Begging</span>
           </ButtonComponent>
         </li>
         <li>
           <ButtonComponent onClick={() => {}} disabled>
-            <img src="/images/carpenter.jpeg" alt="" className="w-32" />
+            <img src="./images/carpenter.jpeg" alt="" className="w-32" />
             <span>Carpentry</span>
             <span className="text-xs block text-rose-300">Need 10 Woodcutting</span>
           </ButtonComponent>
         </li>
         <li>
           <ButtonComponent onClick={() => {}} disabled>
-            <img src="/images/mine.jpeg" alt="" className="w-32" />
+            <img src="./images/mine.jpeg" alt="" className="w-32" />
             <span>Mining</span>
           </ButtonComponent>
         </li>
         <li>
           <ButtonComponent onClick={() => {}} disabled>
-            <img src="/images/fishing.jpeg" alt="" className="w-32" />
+            <img src="./images/fishing.jpeg" alt="" className="w-32" />
             <span>Fishing</span>
           </ButtonComponent>
         </li>
         <li>
           <ButtonComponent onClick={() => {}} disabled>
-            <img src="/images/cooking.jpeg" alt="" className="w-32" />
+            <img src="./images/cooking.jpeg" alt="" className="w-32" />
             <span>Cooking</span>
           </ButtonComponent>
         </li>
         <li>
           <ButtonComponent onClick={() => {}} disabled>
-            <img src="/images/robbery.jpeg" alt="" className="w-32" />
+            <img src="./images/robbery.jpeg" alt="" className="w-32" />
             <span>Robbery</span>
             <span className="text-xs block text-rose-300">Need 10 Deception</span>
           </ButtonComponent>

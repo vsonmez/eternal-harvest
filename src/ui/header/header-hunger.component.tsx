@@ -67,7 +67,7 @@ const HeaderHunger: React.FC<Props> = ({ showText }) => {
 
   return (
     <div className="flex items-center">
-      {!showText && <img src="/images/bread.jpeg" alt="" className="w-8 h-8" />}
+      {!showText && <img src="./images/bread.jpeg" alt="" className="w-8 h-8" />}
       {showText && <span className="mr-1">Hunger:</span>}
       <strong>
         <span className={cssClassByHungerValue()}>
