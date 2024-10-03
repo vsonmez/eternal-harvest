@@ -61,9 +61,6 @@ const Begging = () => {
       if (beggingRewardResult) {
         if (beggingRewardResult === "coin" || beggingRewardResult === "coinDouble") {
           const isDouble = beggingRewardResult === "coinDouble";
-          if (isDouble) {
-            debugger;
-          }
           const coinAmount = getRandonNumber(1, beggingLevel) / 100;
           const doubleCoinAmount = coinAmount * 2;
           addMessage({
