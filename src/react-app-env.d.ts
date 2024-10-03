@@ -2,7 +2,7 @@
 /// <reference types="redux-persist" />
 declare module "*.mp3";
 
-type SkillActionTypes = "woodcutting" | "begging" | "fishing" | undefined;
+type SkillActionTypes = "woodcutting" | "begging" | "fishing" | "mining" | "cooking" | undefined;
 type DialogTypes = "market" | "inventory" | "equipment" | "skillActions" | "gift" | "travel";
 type MessageTypes = "info" | "success" | "warning" | "error" | "perfect";
 type ItemRarity = "common" | "uncommon" | "rare" | "epic" | "legendary";
