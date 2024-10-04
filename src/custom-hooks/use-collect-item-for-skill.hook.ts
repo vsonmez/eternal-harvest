@@ -26,6 +26,7 @@ const useCollectItemForSkill = (canUseSkill: boolean, isActive: boolean, startCo
           text: "YOUR ITEM IS BROKEN!",
           type: "warning",
         });
+        setIsBusy(false);
         return;
       }
       if (!isActive) {
