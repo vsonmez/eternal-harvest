@@ -7,12 +7,14 @@ namespace WoodCutterStore {
     woodcutterLevel: number;
     woodcuttingXP: number;
     woodcuttingXPToNextLevel: number;
+    hasAutoWoodcutting: boolean;
   };
 
   export const initialState: WoodCutterStore = {
     woodcutterLevel: 0,
     woodcuttingXP: 0,
     woodcuttingXPToNextLevel: getFibonacciNumber(0) * 10,
+    hasAutoWoodcutting: false,
   };
 
   const woodCutterSlice = createSlice({
@@ -26,6 +28,9 @@ namespace WoodCutterStore {
         state.woodcutterLevel += 1;
         state.woodcuttingXPToNextLevel = getFibonacciNumber(state.woodcutterLevel) * 10;
       },
+      setAutoWoodcutting(state, action: PayloadAction<boolean>) {
+        state.hasAutoWoodcutting = action.payload;
+      },
     },
   });
 
@@ -36,6 +41,7 @@ namespace WoodCutterStore {
     getWoodCutterLevel: (state: AppStore.RootState) => state.persistedReducers.woodcutting.woodcutterLevel,
     getWoodCuttingXP: (state: AppStore.RootState) => state.persistedReducers.woodcutting.woodcuttingXP,
     getWoodCuttingXPToNextLevel: (state: AppStore.RootState) => state.persistedReducers.woodcutting.woodcuttingXPToNextLevel,
+    hasAutoWoodcutting: (state: AppStore.RootState) => state.persistedReducers.woodcutting.hasAutoWoodcutting,
   };
 }
 

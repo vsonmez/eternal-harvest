@@ -10,27 +10,12 @@ import useSkill from "../../custom-hooks/use-skill.hook";
 import useCollectItemForSkill from "../../custom-hooks/use-collect-item-for-skill.hook";
 
 const WoodCollector: React.FC = () => {
+  const [isAutoWoodcutting, setIsAutoWoodcutting] = React.useState<boolean>(false);
   const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, playerBag, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount } = useSkill(sound);
 
   const canUseWoodcutting = useCheckWoodcutterAxe();
   const collectWood = useCollectItemForSkill(canUseWoodcutting, isActive, startCountdown, play);
-  const { increaseWoodCuttingLevel, increaseWoodCuttingXP, woodcutterLevel, woodcuttingXP, woodcuttingXPToNextLevel } = useWoodcutterStore();
-
-  /*  const collectWood = React.useCallback(() => {
-    if (canUseWoodcutting && checkHungerValue()) {
-      if (!isActive) {
-        addMessage({
-          text: "Harvesting wood...",
-          type: "info",
-        });
-        decreaseHungerValue(1);
-        setIsBusy(true);
-        startCountdown();
-        play();
-      }
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive, startCountdown, setIsBusy, play, decreaseHungerValue, canUseWoodcutting, addMessage]); */
+  const { increaseWoodCuttingLevel, increaseWoodCuttingXP, woodcutterLevel, woodcuttingXP, woodcuttingXPToNextLevel, hasAutoWoodcutting } = useWoodcutterStore();
 
   React.useEffect(() => {
     if (count === 0 && isActive) {
@@ -53,8 +38,12 @@ const WoodCollector: React.FC = () => {
         });
       }
     }
+
+    if (isAutoWoodcutting && !isActive) {
+      collectWood();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count, isActive]);
+  }, [count, isActive, isAutoWoodcutting]);
 
   React.useEffect(() => {
     if (woodcutterLevel < woodcutterConstant.levelLimit) {
@@ -86,6 +75,12 @@ const WoodCollector: React.FC = () => {
       <div className="bg-black/70 p-2 flex flex-col gap-1">
         <h2>Woodcutting</h2>
         <h3>Wood Amount: {playerBag["wood"]?.amount || 0}</h3>
+        {hasAutoWoodcutting && (
+          <label className="flex items-center gap-2">
+            <input type="checkbox" checked={isAutoWoodcutting} onChange={() => setIsAutoWoodcutting(!isAutoWoodcutting)} />
+            <span>Auto Woodcutting</span>
+          </label>
+        )}
         <ButtonComponent disabled={!canUseWoodcutting} onClick={collectWood}>
           {isActive ? `Harvesting ${count}` : "Harvest Wood"}
         </ButtonComponent>

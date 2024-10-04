@@ -15,6 +15,7 @@ const useGlobalStore = () => {
   const setSkillActionType = (skillActionype: SkillActionTypes) => {
     dispatch(GlobalStore.actions.setSkillActionType(skillActionype));
   };
+
   return {
     getGlobal,
     setIsBusy,

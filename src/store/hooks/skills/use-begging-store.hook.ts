@@ -6,6 +6,7 @@ const useBeggingStore = () => {
   const beggingLevel = AppStore.useAppSelector(BeggingStore.select.getBeggingLevel);
   const beggingXP = AppStore.useAppSelector(BeggingStore.select.getBeggingXP);
   const beggingXPToNextLevel = AppStore.useAppSelector(BeggingStore.select.getBeggingXPToNextLevel);
+  const hasAutoBegging = AppStore.useAppSelector(BeggingStore.select.hasAutoBegging);
 
   const increaseBeggingLevel = () => {
     dispatch(BeggingStore.actions.increaseBeggingLevel());
@@ -15,12 +16,18 @@ const useBeggingStore = () => {
     dispatch(BeggingStore.actions.increaseBeggingXP(amount));
   };
 
+  const setHasAutoBegging = (hasAutoBegging: boolean) => {
+    dispatch(BeggingStore.actions.setHasAutoBegging(hasAutoBegging));
+  };
+
   return {
     beggingLevel,
     beggingXP,
     beggingXPToNextLevel,
     increaseBeggingLevel,
     increaseBeggingXP,
+    setHasAutoBegging,
+    hasAutoBegging,
   };
 };
 

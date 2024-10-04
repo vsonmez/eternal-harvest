@@ -18,10 +18,11 @@ import useDeceptionStore from "../../store/hooks/skills/use-deception-store.hook
 import FixedNumberComponent from "../../ui/fixed-number.component";
 
 const Begging = () => {
+  const [isAutoBegging, setIsAutoBegging] = React.useState(false);
   const [checkDeceptionEXPgain, setCheckDeceptionEXPgain] = React.useState(false);
   const { addItemToPlayerBag } = usePlayerBagStore();
   const { addGold } = usePlayerGoldStore();
-  const { beggingLevel, beggingXP, beggingXPToNextLevel, increaseBeggingXP, increaseBeggingLevel } = useBeggingStore();
+  const { beggingLevel, beggingXP, beggingXPToNextLevel, increaseBeggingXP, increaseBeggingLevel, hasAutoBegging } = useBeggingStore();
   const { play } = useSound({ sound: beggingSound, playbackRate: 0.6 });
   const { playerHandItem } = usePlayerEquipmentStore();
   const { addMessage, resetMessageList } = useMessageStore();
@@ -32,6 +33,7 @@ const Begging = () => {
   const deceptionBonus = React.useMemo(() => deceptionLevel / 3, [deceptionLevel]);
 
   const begging = React.useCallback(() => {
+    debugger;
     if (playerHandItem) {
       addMessage({
         text: "Your hand must be empty.",
@@ -86,8 +88,12 @@ const Begging = () => {
         setCheckDeceptionEXPgain(true);
       }
     }
+
+    if (isAutoBegging && !isActive) {
+      begging();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count, isActive, beggingLevel]);
+  }, [count, isActive, beggingLevel, isAutoBegging]);
 
   React.useEffect(() => {
     if (beggingLevel < beggingConstant.levelLimit) {
@@ -120,6 +126,12 @@ const Begging = () => {
         <DecepitonComponent checkEXPgain={checkDeceptionEXPgain} />
         <div className="bg-black/70 p-2 flex flex-col gap-1 text-center">
           <h2>Begging</h2>
+          {hasAutoBegging && (
+            <label className="flex items-center gap-2">
+              <input type="checkbox" checked={isAutoBegging} onChange={() => setIsAutoBegging(!isAutoBegging)} />
+              <span>Auto Begging</span>
+            </label>
+          )}
           <ButtonComponent className=" w-[102px]" onClick={begging}>
             {isActive ? `Begging ${count}` : "Start Begging"}
           </ButtonComponent>

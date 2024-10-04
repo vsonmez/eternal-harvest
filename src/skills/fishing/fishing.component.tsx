@@ -10,12 +10,13 @@ import ButtonComponent from "../../ui/button.component";
 import useCollectItemForSkill from "../../custom-hooks/use-collect-item-for-skill.hook";
 
 const Fishing = () => {
+  const [isAutoFishing, setIsAutoFishing] = React.useState(false);
   const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, playerBag, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount } =
     useSkill(fishingSound);
 
   const canUseFishing = useCheckFishingRod();
   const collectFish = useCollectItemForSkill(canUseFishing, isActive, startCountdown, play);
-  const { fishingLevel, fishingXP, fishingXPToNextLevel, increaseFishingXP, increaseFishingLevel } = useFishingStore();
+  const { fishingLevel, fishingXP, fishingXPToNextLevel, increaseFishingXP, increaseFishingLevel, hasAutoFishing } = useFishingStore();
 
   React.useEffect(() => {
     if (count === 0 && isActive) {
@@ -38,8 +39,11 @@ const Fishing = () => {
         });
       }
     }
+    if (isAutoFishing && !isActive) {
+      collectFish();
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count, isActive]);
+  }, [count, isActive, isAutoFishing]);
 
   React.useEffect(() => {
     if (fishingLevel < fishingConstant.levelLimit) {
@@ -71,6 +75,12 @@ const Fishing = () => {
       <div className="bg-black/70 p-2 flex flex-col gap-1">
         <h2>Fishing</h2>
         <h3>Fish Amount: {playerBag["rawFish"]?.amount || 0}</h3>
+        {hasAutoFishing && (
+          <label className="flex items-center gap-2">
+            <input type="checkbox" checked={isAutoFishing} onChange={() => setIsAutoFishing(!isAutoFishing)} />
+            <span>Auto Fishing</span>
+          </label>
+        )}
         <ButtonComponent disabled={!canUseFishing} onClick={collectFish}>
           {isActive ? `Harvesting ${count}` : "Harvest Fish"}
         </ButtonComponent>

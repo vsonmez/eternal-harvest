@@ -7,11 +7,13 @@ namespace FishingStore {
     fishingLevel: number;
     fishingXP: number;
     fishingXPToNextLevel: number;
+    hasAutoFishing: boolean;
   };
   const initialState: FishingState = {
     fishingLevel: 0,
     fishingXP: 0,
     fishingXPToNextLevel: getFibonacciNumber(0) * 10,
+    hasAutoFishing: false,
   };
   const fishingSlice = createSlice({
     name: "fishing",
@@ -24,6 +26,9 @@ namespace FishingStore {
         state.fishingLevel += 1;
         state.fishingXPToNextLevel = getFibonacciNumber(state.fishingLevel) * 10;
       },
+      setAutoFishing: (state, action: PayloadAction<boolean>) => {
+        state.hasAutoFishing = action.payload;
+      },
     },
   });
   export const actions = fishingSlice.actions;
@@ -32,6 +37,7 @@ namespace FishingStore {
     getFishingLevel: (state: AppStore.RootState) => state.persistedReducers.fishing.fishingLevel,
     getFishingXP: (state: AppStore.RootState) => state.persistedReducers.fishing.fishingXP,
     getFishingXPToNextLevel: (state: AppStore.RootState) => state.persistedReducers.fishing.fishingXPToNextLevel,
+    hasAutoFishing: (state: AppStore.RootState) => state.persistedReducers.fishing.hasAutoFishing,
   };
 }
 export default FishingStore;
