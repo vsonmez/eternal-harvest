@@ -27,7 +27,7 @@ const SellButton: React.FC<Props> = ({ item, disabled }) => {
     if (item.isEquipped && item.amount === 1) {
       return true;
     }
-    if (item.isLocked) {
+    if (item.isLocked && item.amount === 1) {
       return true;
     }
   }, [item]);

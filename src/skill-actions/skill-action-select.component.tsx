@@ -74,35 +74,40 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
           </ButtonComponent>
         </li>
         <li>
-          <ButtonComponent onClick={() => {}} disabled>
+          <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
             <img src="./images/carpenter.jpeg" alt="" className="w-32" />
             <span>Carpentry</span>
+            <span>Coming soon</span>
             <span className="text-xs block text-rose-300">Need 10 Woodcutting</span>
           </ButtonComponent>
         </li>
         <li>
-          <ButtonComponent onClick={() => {}} disabled>
+          <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
             <img src="./images/mine.jpeg" alt="" className="w-32" />
             <span>Mining</span>
+            <span>Coming soon</span>
           </ButtonComponent>
         </li>
         <li>
-          <ButtonComponent onClick={() => {}} disabled>
+          <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
             <img src="./images/fishing.jpeg" alt="" className="w-32" />
             <span>Fishing</span>
+            <span>Coming soon</span>
           </ButtonComponent>
         </li>
         <li>
-          <ButtonComponent onClick={() => {}} disabled>
+          <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
             <img src="./images/cooking.jpeg" alt="" className="w-32" />
             <span>Cooking</span>
+            <span>Coming soon</span>
           </ButtonComponent>
         </li>
         <li>
-          <ButtonComponent onClick={() => {}} disabled>
+          <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
             <img src="./images/robbery.jpeg" alt="" className="w-32" />
             <span>Robbery</span>
-            <span className="text-xs block text-rose-300">Need 10 Deception</span>
+            <span>Coming soon</span>
+            <span className="text-xs text-rose-300">Need 10 Deception</span>
           </ButtonComponent>
         </li>
       </ul>
