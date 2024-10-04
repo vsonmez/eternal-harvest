@@ -1,39 +1,22 @@
 import React from "react";
-import useCountdown from "../../custom-hooks/use-countdown.hook";
-import usePlayerBagStore from "../../store/hooks/use-player-bag-store.hook";
-import useGlobalStore from "../../store/hooks/use-global-store.hook";
 import sound from "../../sounds/chopping.mp3";
-import useSound from "../../custom-hooks/use-sound.hook";
 import ButtonComponent from "../../ui/button.component";
-import usePlayerHungerStore from "../../store/hooks/use-player-hunger-store.hook";
 import itemDefList from "../../items/item-def.list";
 import useWoodcutterStore from "../../store/hooks/skills/use-woodcutter-store.hook";
-import usePlayerEquipmentStore from "../../store/hooks/use-player-equipment-store.hook";
-import useMessageStore from "../../store/hooks/use-message-store.hook";
 import woodcutterConstant from "../../constants/woodcutter.constant";
 import useCheckWoodcutterAxe from "./hooks/use-check-woodcutter-axe.hook";
-import useCheckHungerValueForSkill from "../../custom-hooks/use-check-hunger-value-for-skill.hook";
-import getItemDef from "../../utils/get-item-def.util";
-import getExtraWoodByLevel from "./utils/get-extra-wood-by-level.util";
-import useGetSkillCountdownTime from "../../custom-hooks/use-get-skill-countdown-time.hook";
-import useGetExtraItemAmountFromEquipment from "../../custom-hooks/use-get-extra-item-amount-from-equipment.hook";
+import getExtraItemByLevel from "../../utils/get-extra-item-by-level.util";
+import useSkill from "../../custom-hooks/use-skill.hook";
+import useCollectItemForSkill from "../../custom-hooks/use-collect-item-for-skill.hook";
 
 const WoodCollector: React.FC = () => {
-  const canUseWoodcutting = useCheckWoodcutterAxe();
-  const { playerHandItem } = usePlayerEquipmentStore();
-  const itemDef = React.useMemo(() => playerHandItem && getItemDef(playerHandItem.defName), [playerHandItem]);
-  const countdownTime = useGetSkillCountdownTime(itemDef, woodcutterConstant.counterLimit);
-  const { calculateExtraItemAmount } = useGetExtraItemAmountFromEquipment();
-  const { count, isActive, startCountdown } = useCountdown(countdownTime);
-  const { setIsBusy } = useGlobalStore();
-  const { play } = useSound({ sound, playbackRate: 2 });
-  const { addMessage, resetMessageList } = useMessageStore();
-  const { decreaseHungerValue } = usePlayerHungerStore();
-  const { addItemToPlayerBag, playerBag } = usePlayerBagStore();
-  const { increaseWoodCuttingXP, woodcutterLevel, woodcuttingXP, woodcuttingXPToNextLevel, increaseWoodCuttingLevel } = useWoodcutterStore();
-  const { checkHungerValueForSkillSuccess, checkHungerValue } = useCheckHungerValueForSkill();
+  const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, playerBag, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount } = useSkill(sound);
 
-  const collectWood = React.useCallback(() => {
+  const canUseWoodcutting = useCheckWoodcutterAxe();
+  const collectWood = useCollectItemForSkill(canUseWoodcutting, isActive, startCountdown, play);
+  const { increaseWoodCuttingLevel, increaseWoodCuttingXP, woodcutterLevel, woodcuttingXP, woodcuttingXPToNextLevel } = useWoodcutterStore();
+
+  /*  const collectWood = React.useCallback(() => {
     if (canUseWoodcutting && checkHungerValue()) {
       if (!isActive) {
         addMessage({
@@ -47,30 +30,31 @@ const WoodCollector: React.FC = () => {
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isActive, startCountdown, setIsBusy, play, decreaseHungerValue, canUseWoodcutting, addMessage]);
+  }, [isActive, startCountdown, setIsBusy, play, decreaseHungerValue, canUseWoodcutting, addMessage]); */
 
   React.useEffect(() => {
     if (count === 0 && isActive) {
       setIsBusy(false);
       if (checkHungerValueForSkillSuccess()) {
         const { extraItemAmountFromTool, extraItemsFromToolMessage } = calculateExtraItemAmount();
-        const { extraWood, extraWoodMessage } = getExtraWoodByLevel(woodcutterLevel);
-        const woodAmount = 1 + extraWood + extraItemAmountFromTool;
+        const luckPoint = Math.min(woodcutterLevel, woodcutterConstant.bonusLimit);
+        const { extraItem, extraItemMessage } = getExtraItemByLevel(luckPoint);
+        const itemAmount = 1 + extraItem + extraItemAmountFromTool;
 
-        increaseWoodCuttingXP(woodAmount);
+        increaseWoodCuttingXP(itemAmount);
         addItemToPlayerBag({
           ...itemDefList.wood,
-          amount: woodAmount,
+          amount: itemAmount,
         });
 
         addMessage({
-          text: `You harvested ${woodAmount} wood/s. ${extraItemsFromToolMessage} ${extraWoodMessage}`,
+          text: `You harvested ${itemAmount} wood/s. ${extraItemsFromToolMessage} ${extraItemMessage}`,
           type: "success",
         });
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count, isActive, countdownTime]);
+  }, [count, isActive]);
 
   React.useEffect(() => {
     if (woodcutterLevel < woodcutterConstant.levelLimit) {

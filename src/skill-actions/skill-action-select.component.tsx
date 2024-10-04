@@ -62,15 +62,21 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
     <DialogComponent onClose={onClose} title="Action List" className="skillAction">
       <ul className="flex flex-col gap-3">
         <li>
+          <ButtonComponent onClick={() => handleSkillAction("begging")}>
+            <img src="./images/begging.jpeg" alt="" className="w-32" />
+            <span>Begging</span>
+          </ButtonComponent>
+        </li>
+        <li>
           <ButtonComponent onClick={() => handleSkillAction("woodcutting")}>
             <img src="./images/woodcutter.jpeg" alt="" className="w-32" />
             <span>Woodcutting</span>
           </ButtonComponent>
         </li>
         <li>
-          <ButtonComponent onClick={() => handleSkillAction("begging")}>
-            <img src="./images/begging.jpeg" alt="" className="w-32" />
-            <span>Begging</span>
+          <ButtonComponent className="flex flex-col items-center" onClick={() => handleSkillAction("fishing")}>
+            <img src="./images/fishing.jpeg" alt="" className="w-32" />
+            <span>Fishing</span>
           </ButtonComponent>
         </li>
         <li>
@@ -85,13 +91,6 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
           <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
             <img src="./images/mine.jpeg" alt="" className="w-32" />
             <span>Mining</span>
-            <span>Coming soon</span>
-          </ButtonComponent>
-        </li>
-        <li>
-          <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
-            <img src="./images/fishing.jpeg" alt="" className="w-32" />
-            <span>Fishing</span>
             <span>Coming soon</span>
           </ButtonComponent>
         </li>

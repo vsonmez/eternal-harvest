@@ -25,7 +25,12 @@ dialog::backdrop {
     background-size: cover;
     background-position: 0 -150px;
 }
-
+.fishing {
+    background-image: url('../public/images/fishing.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 -150px;
+}
 .market::backdrop{
     background-image: url('../public/images/market.jpeg');
 }

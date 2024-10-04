@@ -27,6 +27,30 @@ const rawMaterialDefList: {
       itemChance: 0,
     },
   },
+  rawFish: {
+    name: "Raw Fish",
+    description: "A raw fish. You can not eat it but you can cook it.",
+    defName: "rawFish",
+    price: 0.5,
+    isEdible: false,
+    isSalable: true,
+    isBuyable: false,
+    isEquipable: false,
+    isEquipped: false,
+    equipSlot: undefined,
+    amount: 0,
+    isLocked: false,
+    requiredLevel: 0,
+    requiredSkill: undefined,
+    rarity: "common",
+    itemType: "rawMaterial",
+    bonuses: {
+      countdownTime: 0,
+      itemAmount: 0,
+      itemChance: 0,
+    },
+    hungerRestore: 0,
+  },
 };
 
 export default rawMaterialDefList;
