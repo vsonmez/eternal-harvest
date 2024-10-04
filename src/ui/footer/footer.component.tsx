@@ -5,11 +5,12 @@ import InventoryComponent from "../../inventory/inventory.component";
 import EquipmentComponent from "../../equipment/equipment.component";
 import SkillActionSelectComponent from "../../skill-actions/skill-action-select.component";
 import GiftButtonComponent from "./gift-button.component";
-import { ArchiveBoxIcon, ArrowsUpDownIcon, BoltIcon, BuildingStorefrontIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/outline";
+import { ArchiveBoxIcon, ArrowsUpDownIcon, BoltIcon, BuildingStorefrontIcon, SparklesIcon, WrenchScrewdriverIcon } from "@heroicons/react/24/outline";
 import TravelComponent from "../../travel/travel.component";
 import useTravelStore from "../../store/hooks/use-travel-store.hook";
 import useMessageStore from "../../store/hooks/use-message-store.hook";
 import travelConstants from "../../constants/travel.constants";
+import PremiumMarketComponent from "../../premium-market/premium-market.component";
 
 const Footer = () => {
   const { currentLocation } = useTravelStore();
@@ -22,6 +23,7 @@ const Footer = () => {
       skillActions: false,
       gift: false,
       travel: false,
+      premium: false,
     };
   }, []);
 
@@ -34,6 +36,7 @@ const Footer = () => {
     skillActions: false,
     gift: false,
     travel: false,
+    premium: false,
   });
 
   const handleShow = React.useCallback(
@@ -72,9 +75,12 @@ const Footer = () => {
         <ButtonComponent onClick={() => handleShow("skillActions")}>
           <BoltIcon className="w-5 h-5" />
         </ButtonComponent>
-        <GiftButtonComponent handleShow={handleShow} isShow={show.gift} handleClose={handleClose} />
         <ButtonComponent onClick={() => handleShow("travel")}>
           <ArrowsUpDownIcon className="w-5 h-5" />
+        </ButtonComponent>
+        <GiftButtonComponent handleShow={handleShow} isShow={show.gift} handleClose={handleClose} />
+        <ButtonComponent className="bg-yellow-500 text-black border-yellow-500 ml-auto" onClick={() => handleShow("premium")}>
+          <SparklesIcon className="w-5 h-5" />
         </ButtonComponent>
       </footer>
       {show.market && <MarketComponent onClose={handleClose} />}
@@ -82,6 +88,7 @@ const Footer = () => {
       {show.equipment && <EquipmentComponent onClose={handleClose} />}
       {show.skillActions && <SkillActionSelectComponent onClose={handleClose} />}
       {show.travel && <TravelComponent onClose={handleClose} />}
+      {show.premium && <PremiumMarketComponent onClose={handleClose} />}
     </>
   );
 };

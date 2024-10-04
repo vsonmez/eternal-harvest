@@ -3,7 +3,7 @@
 declare module "*.mp3";
 
 type SkillActionTypes = "woodcutting" | "begging" | "fishing" | "mining" | "cooking" | undefined;
-type DialogTypes = "market" | "inventory" | "equipment" | "skillActions" | "gift" | "travel";
+type DialogTypes = "market" | "inventory" | "equipment" | "skillActions" | "gift" | "travel" | "premium";
 type MessageTypes = "info" | "success" | "warning" | "error" | "perfect";
 type ItemRarity = "common" | "uncommon" | "rare" | "epic" | "legendary";
 type ItemEqipSlot = "hand" | "head" | "body" | "feet" | "handLeft" | "legs" | undefined;

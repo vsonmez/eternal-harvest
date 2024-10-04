@@ -56,3 +56,7 @@ dialog::backdrop {
 .travel::backdrop {
     background-image: url('../public/images/travel.jpg');
 }
+
+.premium::backdrop {
+    background-image: url('../public/images/premium.jpeg');
+}

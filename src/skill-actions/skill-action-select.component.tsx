@@ -80,10 +80,9 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
           </ButtonComponent>
         </li>
         <li>
-          <ButtonComponent className="flex flex-col items-center" onClick={() => handleSkillAction("cooking")} disabled>
+          <ButtonComponent className="flex flex-col items-center" onClick={() => handleSkillAction("cooking")}>
             <img src="./images/cooking.jpeg" alt="" className="w-32" />
             <span>Cooking</span>
-            <span>Coming soon</span>
           </ButtonComponent>
         </li>
         <li>

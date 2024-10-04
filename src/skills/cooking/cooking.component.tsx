@@ -3,11 +3,13 @@ import usePlayerBagStore from "../../store/hooks/use-player-bag-store.hook";
 import getCookableItems from "../../utils/get-cookable-items.util";
 import ButtonComponent from "../../ui/button.component";
 import BagItem from "../../items/models/bag-item.type";
+import useMessageStore from "../../store/hooks/use-message-store.hook";
 
 const Cooking = () => {
   const [selectedItem, setSelectedItem] = React.useState<BagItem | null>(null);
   const { playerBag } = usePlayerBagStore();
   const cookableItems = React.useMemo(() => getCookableItems(Object.values(playerBag)), [playerBag]);
+  const { addMessage } = useMessageStore();
 
   const onSelectItem = React.useCallback(
     (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -18,6 +20,14 @@ const Cooking = () => {
     },
     [playerBag]
   );
+
+  React.useEffect(() => {
+    addMessage({
+      text: "COMING SOON",
+      type: "warning",
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <div className="border border-gray-500 p-2 cooking flex flex-col gap-2">
