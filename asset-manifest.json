@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/eternal-harvest/static/css/main.a81d8811.css",
-    "main.js": "/eternal-harvest/static/js/main.4b454b10.js",
+    "main.js": "/eternal-harvest/static/js/main.624601f6.js",
     "static/js/453.96425bd6.chunk.js": "/eternal-harvest/static/js/453.96425bd6.chunk.js",
     "static/media/05.mp3": "/eternal-harvest/static/media/05.55fc6f51b5de6592ab1a.mp3",
     "static/media/01.mp3": "/eternal-harvest/static/media/01.a4b405ad2d8432c9b062.mp3",
@@ -25,11 +25,11 @@
     "static/media/coin-dropped.mp3": "/eternal-harvest/static/media/coin-dropped.3c1ba26b82b8e5dba901.mp3",
     "index.html": "/eternal-harvest/index.html",
     "main.a81d8811.css.map": "/eternal-harvest/static/css/main.a81d8811.css.map",
-    "main.4b454b10.js.map": "/eternal-harvest/static/js/main.4b454b10.js.map",
+    "main.624601f6.js.map": "/eternal-harvest/static/js/main.624601f6.js.map",
     "453.96425bd6.chunk.js.map": "/eternal-harvest/static/js/453.96425bd6.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a81d8811.css",
-    "static/js/main.4b454b10.js"
+    "static/js/main.624601f6.js"
   ]
 }
