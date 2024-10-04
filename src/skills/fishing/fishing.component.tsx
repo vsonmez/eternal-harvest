@@ -69,7 +69,7 @@ const Fishing = () => {
         </h3>
       </div>
       <div className="bg-black/70 p-2 flex flex-col gap-1">
-        <h2>Fish Harvesting</h2>
+        <h2>Fishing</h2>
         <h3>Fish Amount: {playerBag["rawFish"]?.amount || 0}</h3>
         <ButtonComponent disabled={!canUseFishing} onClick={collectFish}>
           {isActive ? `Harvesting ${count}` : "Harvest Fish"}

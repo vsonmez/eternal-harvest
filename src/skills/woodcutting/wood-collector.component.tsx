@@ -84,7 +84,7 @@ const WoodCollector: React.FC = () => {
         </h3>
       </div>
       <div className="bg-black/70 p-2 flex flex-col gap-1">
-        <h2>Wood Harvesting</h2>
+        <h2>Woodcutting</h2>
         <h3>Wood Amount: {playerBag["wood"]?.amount || 0}</h3>
         <ButtonComponent disabled={!canUseWoodcutting} onClick={collectWood}>
           {isActive ? `Harvesting ${count}` : "Harvest Wood"}
