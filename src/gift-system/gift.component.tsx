@@ -25,8 +25,8 @@ const Gift: React.FC<Props> = ({ onClose }) => {
 
   const handleOpenGift = React.useCallback(() => {
     const reward = getRewardItemList();
-    const minRewardAmount = Math.floor(rewardLevel / 4) || 1;
-    const maxRewardAmount = rewardLevel || 1;
+    const minRewardAmount = Math.floor(rewardLevel / 10) || 1;
+    const maxRewardAmount = Math.floor(rewardLevel / 5) || 1;
     const rewardItemAmount = getRandonNumber(minRewardAmount, maxRewardAmount);
     if (reward === "coin" || reward === "coinDouble") {
       const isDouble = reward === "coinDouble";

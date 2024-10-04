@@ -11,7 +11,7 @@ const useRandomBgMusic = () => {
   const audio = React.useMemo(() => {
     const audio = new Audio();
     audio.loop = true;
-    audio.volume = 0.1;
+    audio.volume = 0.3;
     return audio;
   }, []);
   const bgMusicList = React.useMemo(() => [bgMusic1, bgMusic2, bgMusic3, bgMusic4, bgMusic5, bgMusic6, bgMusic7], []);

@@ -3,6 +3,7 @@ type Item = {
   readonly description: string;
   readonly defName: string;
   readonly price: number;
+  readonly isCookable: boolean;
   readonly isEdible: boolean;
   readonly isSalable: boolean;
   readonly isBuyable: boolean;
@@ -20,6 +21,10 @@ type Item = {
     countdownTime: number;
     itemAmount: number;
     itemChance: number;
+  };
+  readonly hp: {
+    readonly max: number;
+    current: number;
   };
 };
 
