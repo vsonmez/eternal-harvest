@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/eternal-harvest/static/css/main.d15bd716.css",
-    "main.js": "/eternal-harvest/static/js/main.6ebf1f0d.js",
+    "main.css": "/eternal-harvest/static/css/main.447e499f.css",
+    "main.js": "/eternal-harvest/static/js/main.3912113d.js",
     "static/js/453.96425bd6.chunk.js": "/eternal-harvest/static/js/453.96425bd6.chunk.js",
     "static/media/05.mp3": "/eternal-harvest/static/media/05.55fc6f51b5de6592ab1a.mp3",
     "static/media/01.mp3": "/eternal-harvest/static/media/01.a4b405ad2d8432c9b062.mp3",
@@ -12,6 +12,7 @@
     "static/media/chopping.mp3": "/eternal-harvest/static/media/chopping.69f83d0e212994bbb14f.mp3",
     "static/media/03.mp3": "/eternal-harvest/static/media/03.60f8c806aade73f368a7.mp3",
     "static/media/woodcutter.jpeg": "/eternal-harvest/static/media/woodcutter.6551aa7e334037a47151.jpeg",
+    "static/media/mine.jpeg": "/eternal-harvest/static/media/mine.34bd4f9ecf8234f3ba15.jpeg",
     "static/media/travel.jpg": "/eternal-harvest/static/media/travel.3e3b6019ff297963c5eb.jpg",
     "static/media/premium.jpeg": "/eternal-harvest/static/media/premium.8088dc0a9cdae2f94d59.jpeg",
     "static/media/market.jpeg": "/eternal-harvest/static/media/market.f7bb9eebb6bef4f68246.jpeg",
@@ -28,12 +29,12 @@
     "static/media/fishing.mp3": "/eternal-harvest/static/media/fishing.d1a716670eaa718b52a9.mp3",
     "static/media/coin-dropped.mp3": "/eternal-harvest/static/media/coin-dropped.3c1ba26b82b8e5dba901.mp3",
     "index.html": "/eternal-harvest/index.html",
-    "main.d15bd716.css.map": "/eternal-harvest/static/css/main.d15bd716.css.map",
-    "main.6ebf1f0d.js.map": "/eternal-harvest/static/js/main.6ebf1f0d.js.map",
+    "main.447e499f.css.map": "/eternal-harvest/static/css/main.447e499f.css.map",
+    "main.3912113d.js.map": "/eternal-harvest/static/js/main.3912113d.js.map",
     "453.96425bd6.chunk.js.map": "/eternal-harvest/static/js/453.96425bd6.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.d15bd716.css",
-    "static/js/main.6ebf1f0d.js"
+    "static/css/main.447e499f.css",
+    "static/js/main.3912113d.js"
   ]
 }
