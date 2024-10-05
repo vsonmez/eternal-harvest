@@ -74,7 +74,15 @@ const Cooking = () => {
         amount: 1,
       });
       const randomNumber = getRandonNumber();
-      const cookingSuccessChance = Math.max(25, cookingLevel);
+      let cookingSuccessChance = 0;
+
+      if (cookingLevel <= 25) {
+        cookingSuccessChance = Math.max(25, cookingLevel);
+      } else if (cookingLevel < 50) {
+        cookingSuccessChance = cookingLevel;
+      } else {
+        cookingSuccessChance = 50 + cookingLevel / 2;
+      }
 
       if (randomNumber <= cookingSuccessChance) {
         addItemToPlayerBag({
