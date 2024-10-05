@@ -84,7 +84,7 @@ const Cooking = () => {
         cookingSuccessChance = 50 + cookingLevel / 2;
       }
 
-      if (randomNumber <= cookingSuccessChance) {
+      if (randomNumber <= cookingSuccessChance && selectedItem.processedItem) {
         addItemToPlayerBag({
           ...itemDefList[selectedItem.processedItem],
           amount: 1,

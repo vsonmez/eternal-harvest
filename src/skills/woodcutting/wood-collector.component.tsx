@@ -11,7 +11,10 @@ import useCollectItemForSkill from "../../custom-hooks/use-collect-item-for-skil
 
 const WoodCollector: React.FC = () => {
   const [isAutoWoodcutting, setIsAutoWoodcutting] = React.useState<boolean>(false);
-  const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, playerBag, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount } = useSkill(sound);
+  const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, playerBag, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount } = useSkill(
+    sound,
+    woodcutterConstant.counterLimit
+  );
 
   const canUseWoodcutting = useCheckWoodcutterAxe();
   const collectWood = useCollectItemForSkill(canUseWoodcutting, isActive, startCountdown, play);

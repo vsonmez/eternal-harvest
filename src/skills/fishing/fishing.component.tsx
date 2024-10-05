@@ -11,8 +11,10 @@ import useCollectItemForSkill from "../../custom-hooks/use-collect-item-for-skil
 
 const Fishing = () => {
   const [isAutoFishing, setIsAutoFishing] = React.useState(false);
-  const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, playerBag, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount } =
-    useSkill(fishingSound);
+  const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, playerBag, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount } = useSkill(
+    fishingSound,
+    fishingConstant.counterLimit
+  );
 
   const canUseFishing = useCheckFishingRod();
   const collectFish = useCollectItemForSkill(canUseFishing, isActive, startCountdown, play);

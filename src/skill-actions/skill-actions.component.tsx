@@ -4,6 +4,7 @@ import useGlobalStore from "../store/hooks/use-global-store.hook";
 import BeggingComponent from "../skills/begging/begging.component";
 import FishingComponent from "../skills/fishing/fishing.component";
 import CookingComponent from "../skills/cooking/cooking.component";
+import MiningComponent from "../skills/mining/mining.component";
 
 const SkillActions = () => {
   const {
@@ -19,6 +20,8 @@ const SkillActions = () => {
       return <FishingComponent />;
     case "cooking":
       return <CookingComponent />;
+    case "mining":
+      return <MiningComponent />;
     default:
       return <></>;
   }

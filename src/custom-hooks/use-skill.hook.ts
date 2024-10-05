@@ -11,7 +11,7 @@ import useGetSkillCountdownTime from "./use-get-skill-countdown-time.hook";
 import useSound from "./use-sound.hook";
 import useGetExtraItemAmountFromEquipment from "./use-get-extra-item-amount-from-equipment.hook";
 
-const useSkill = (sound: "*.mp3", playbackRate?: number, loop?: boolean) => {
+const useSkill = (sound: "*.mp3", counterLimit: number, playbackRate?: number, loop?: boolean) => {
   const { playerHandItem } = usePlayerEquipmentStore();
   const itemDef = React.useMemo(() => playerHandItem && getItemDef(playerHandItem.defName), [playerHandItem]);
   const countdownTime = useGetSkillCountdownTime(itemDef, woodcutterConstant.counterLimit);

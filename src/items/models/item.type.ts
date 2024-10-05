@@ -28,7 +28,7 @@ type Item = {
     readonly max: number;
     current: number;
   };
-  readonly processedItem: ItemDefName;
+  readonly processedItem: ItemDefName | undefined;
 };
 
 export default Item;

@@ -60,6 +60,17 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
             });
             return;
           }
+
+        case "mining":
+          if (currentLocation === "mines") {
+            break;
+          } else {
+            addToastrMessage({
+              type: "error",
+              text: `You can only use mining in the ${travelConstants.travelLocations.mines}`,
+            });
+            return;
+          }
         default:
           break;
       }
@@ -96,6 +107,12 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
           </ButtonComponent>
         </li>
         <li>
+          <ButtonComponent className="flex flex-col items-center" onClick={() => handleSkillAction("mining")}>
+            <img src="./images/mine.jpeg" alt="" className="w-32" />
+            <span>Mining</span>
+          </ButtonComponent>
+        </li>
+        <li>
           <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
             <img src="./images/carpenter.jpeg" alt="" className="w-32" />
             <span>Carpentry</span>
@@ -103,13 +120,7 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
             <span className="text-xs block text-rose-300">Need 10 Woodcutting</span>
           </ButtonComponent>
         </li>
-        <li>
-          <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
-            <img src="./images/mine.jpeg" alt="" className="w-32" />
-            <span>Mining</span>
-            <span>Coming soon</span>
-          </ButtonComponent>
-        </li>
+
         <li>
           <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
             <img src="./images/robbery.jpeg" alt="" className="w-32" />
