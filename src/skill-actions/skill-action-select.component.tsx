@@ -50,6 +50,16 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
             });
             return;
           }
+        case "cooking":
+          if (currentLocation === "soupKitchen") {
+            break;
+          } else {
+            addToastrMessage({
+              type: "error",
+              text: `You can only use fishing in the ${travelConstants.travelLocations.soupKitchen}`,
+            });
+            return;
+          }
         default:
           break;
       }
