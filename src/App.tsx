@@ -13,7 +13,7 @@ function App() {
 
   React.useEffect(() => {
     addMessage({
-      text: "You are in Market Place. You can buy stuff only there.",
+      text: "You are in Market Place. You can buy/sell stuff only here.",
       type: "success",
     });
     addMessage({
