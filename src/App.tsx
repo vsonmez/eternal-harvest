@@ -9,20 +9,24 @@ import useMessageStore from "./store/hooks/use-message-store.hook";
 
 function App() {
   const { addMessage } = useMessageStore();
-  useTimeTrackerWithReward();
+  /* useTimeTrackerWithReward(); */
 
   React.useEffect(() => {
+    addMessage({
+      text: "You are in Market Place. You can buy stuff only there.",
+      type: "success",
+    });
     addMessage({
       text: "I promise you there will be no ads in this game!",
       type: "warning",
     });
     addMessage({
       text: "Wiki pages will be added soon.",
-      type: "success",
+      type: "info",
     });
     addMessage({
       text: "Welcome to your adventure. Good luck!",
-      type: "success",
+      type: "info",
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

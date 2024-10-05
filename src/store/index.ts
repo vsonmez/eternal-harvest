@@ -15,6 +15,7 @@ import storage from "redux-persist/lib/storage";
 import { persistReducer, persistStore } from "redux-persist";
 import TravelStore from "./slices/travel-store.slice";
 import FishingStore from "./slices/skills/fishing-store.slice";
+import CookingStore from "./slices/skills/player-cooking-store.slice";
 
 namespace AppStore {
   const persistConfig = {
@@ -31,6 +32,7 @@ namespace AppStore {
     begging: BeggingStore.reducers,
     fishing: FishingStore.reducers,
     deception: DeceptionStore.reducers,
+    cooking: CookingStore.reducers,
     gift: GiftStore.reducers,
     travel: TravelStore.reducers,
   });

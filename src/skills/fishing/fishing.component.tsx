@@ -37,6 +37,8 @@ const Fishing = () => {
           text: `You harvested ${itemAmount} raw fish/s. ${extraItemsFromToolMessage} ${extraItemMessage}`,
           type: "success",
         });
+      } else {
+        setIsAutoFishing(false);
       }
     }
     if (isAutoFishing && !isActive) {

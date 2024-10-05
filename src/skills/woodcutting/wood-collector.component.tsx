@@ -36,6 +36,8 @@ const WoodCollector: React.FC = () => {
           text: `You harvested ${itemAmount} wood/s. ${extraItemsFromToolMessage} ${extraItemMessage}`,
           type: "success",
         });
+      } else {
+        setIsAutoWoodcutting(false);
       }
     }
 

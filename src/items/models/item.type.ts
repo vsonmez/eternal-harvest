@@ -1,7 +1,9 @@
+import itemDefList from "../item-def.list";
+export type ItemDefName = keyof typeof itemDefList;
 type Item = {
   readonly name: string;
   readonly description: string;
-  readonly defName: string;
+  readonly defName: ItemDefName;
   readonly price: number;
   readonly isCookable: boolean;
   readonly isEdible: boolean;
@@ -26,6 +28,7 @@ type Item = {
     readonly max: number;
     current: number;
   };
+  readonly processedItem: ItemDefName;
 };
 
 export default Item;

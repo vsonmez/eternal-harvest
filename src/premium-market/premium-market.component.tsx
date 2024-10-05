@@ -5,6 +5,7 @@ import useBeggingStore from "../store/hooks/skills/use-begging-store.hook";
 import useToastrStore from "../store/hooks/use-toastr-store.hook";
 import useFishingStore from "../store/hooks/skills/use-fishing-store.hook";
 import useWoodcutterStore from "../store/hooks/skills/use-woodcutter-store.hook";
+import useCookingStore from "../store/hooks/skills/use-cooking-store.hook";
 
 type Props = {
   onClose: () => void;
@@ -14,6 +15,7 @@ const PremiumMarket: React.FC<Props> = ({ onClose }) => {
   const { setHasAutoBegging, hasAutoBegging } = useBeggingStore();
   const { setAutoFishing, hasAutoFishing } = useFishingStore();
   const { hasAutoWoodcutting, setAutoWoodcutting } = useWoodcutterStore();
+  const { hasAutoCooking, setAutoCooking } = useCookingStore();
   const { addToastrMessage } = useToastrStore();
   return (
     <DialogComponent onClose={onClose} title="Premium Market" className="premium">
@@ -94,13 +96,28 @@ const PremiumMarket: React.FC<Props> = ({ onClose }) => {
           </ButtonComponent>
         </li>
         <li>
-          <ButtonComponent className="w-full flex flex-col items-center gap-1" onClick={() => {}} disabled>
+          <ButtonComponent
+            disabled={hasAutoCooking}
+            className="w-full flex flex-col items-center gap-1"
+            onClick={() => {
+              setAutoCooking(true);
+              addToastrMessage({
+                type: "success",
+                text: "You bought the auto cooking!",
+              });
+            }}
+          >
             <span className="flex items-center gap-2 text-lg">
               <span>Auto Cooking</span>
-              <span>Free for test.</span>
+              {!hasAutoCooking && <span>Free for test.</span>}
             </span>
-            <span>This is not an idle feature.</span>
-            <span>It just automatically clicks the button.</span>
+            {hasAutoCooking && <span>Already bought</span>}
+            {!hasAutoCooking && (
+              <>
+                <span>This is not an idle feature.</span>
+                <span>It just automatically clicks the button.</span>
+              </>
+            )}
           </ButtonComponent>
         </li>
       </ul>

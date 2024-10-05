@@ -33,8 +33,8 @@ const Begging = () => {
   const deceptionBonus = React.useMemo(() => deceptionLevel / 3, [deceptionLevel]);
 
   const begging = React.useCallback(() => {
-    debugger;
     if (playerHandItem) {
+      setIsAutoBegging(false);
       addMessage({
         text: "Your hand must be empty.",
         type: "warning",

@@ -6,7 +6,40 @@ namespace PlayerBagStore {
   type PlayerBagState = {
     [key: string]: BagItem;
   };
-  export const initialState: PlayerBagState = {};
+  export const initialState: PlayerBagState = {
+    fryingPan: {
+      amount: 1,
+      bonuses: {
+        countdownTime: 0,
+        itemAmount: 0,
+        itemChance: 0,
+      },
+      defName: "fryingPan",
+      equipSlot: "hand",
+      isCookable: false,
+      isEquipped: false,
+      isLocked: false,
+      itemType: "tool",
+      name: "Frying Pan",
+      processedItem: "",
+    },
+    rawFish: {
+      amount: 1000,
+      bonuses: {
+        countdownTime: 0,
+        itemAmount: 0,
+        itemChance: 0,
+      },
+      defName: "rawFish",
+      equipSlot: undefined,
+      isCookable: true,
+      isEquipped: false,
+      isLocked: false,
+      itemType: "rawMaterial",
+      name: "Raw Fish",
+      processedItem: "bakedFish",
+    },
+  };
 
   const playerBagSlice = createSlice({
     name: "playerBag",

@@ -10,7 +10,7 @@ namespace TravelStore {
 
   const initialState: TravelState = {
     currentCity: "city",
-    currentLocation: "cityCenter",
+    currentLocation: "marketPlace",
     destination: undefined,
   };
 
