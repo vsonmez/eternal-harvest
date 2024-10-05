@@ -9,6 +9,7 @@ import getExtraItemByLevel from "../../utils/get-extra-item-by-level.util";
 import itemDefList from "../../items/item-def.list";
 import ButtonComponent from "../../ui/button.component";
 import getOre from "../../utils/get-ore.util";
+import getRandonNumber from "../../utils/get-random-number.util";
 
 const Mining = () => {
   const [isAutoMining, setIsAutoMining] = React.useState(false);
@@ -25,35 +26,57 @@ const Mining = () => {
     if (count === 0 && isActive) {
       setIsBusy(false);
       if (checkHungerValueForSkillSuccess()) {
-        const { extraItemAmountFromTool, extraItemsFromToolMessage } = calculateExtraItemAmount();
-        const luckPoint = Math.min(miningLevel, miningConstant.bonusLimit);
-        const { extraItem, extraItemMessage } = getExtraItemByLevel(luckPoint);
-        const itemAmount = extraItem + extraItemAmountFromTool;
+        let successChance = 0;
+        if (miningLevel <= 10) {
+          successChance = 30;
+        } else if (miningLevel <= 20 && miningLevel > 10) {
+          successChance = 40;
+        } else if (miningLevel <= 30 && miningLevel > 20) {
+          successChance = 50;
+        } else if (miningLevel <= 40 && miningLevel > 30) {
+          successChance = 60;
+        } else if (miningLevel <= 50 && miningLevel > 40) {
+          successChance = 70;
+        }
+        const success = getRandonNumber(1, 100) <= successChance;
 
-        let oreListLevel = 10;
-        if (miningLevel >= 20) {
-          oreListLevel = 20;
+        if (success) {
+          const { extraItemAmountFromTool, extraItemsFromToolMessage } = calculateExtraItemAmount();
+          const luckPoint = Math.min(miningLevel, miningConstant.bonusLimit);
+          const { extraItem, extraItemMessage } = getExtraItemByLevel(luckPoint);
+          const itemAmount = extraItem + extraItemAmountFromTool;
+
+          let oreListLevel = 10;
+          if (miningLevel >= 20) {
+            oreListLevel = 20;
+          }
+          if (miningLevel >= 30) {
+            oreListLevel = 30;
+          }
+          if (miningLevel >= 40) {
+            oreListLevel = 40;
+          }
+          if (miningLevel >= 50) {
+            oreListLevel = 50;
+          }
+          const { oreDefName, amount } = getOre(oreListLevel);
+          const totalAmount = amount + itemAmount;
+          addItemToPlayerBag({
+            ...itemDefList[oreDefName],
+            amount: totalAmount,
+          });
+          increaseMiningXP(Math.round(totalAmount / 2));
+          addMessage({
+            text: `You harvested ${itemDefList[oreDefName].name} x${totalAmount}. ${extraItemsFromToolMessage} ${extraItemMessage}`,
+            type: "success",
+          });
+        } else {
+          addMessage({
+            text: "You failed to harvest anything.",
+            type: "error",
+          });
+          increaseMiningXP(1);
         }
-        if (miningLevel >= 30) {
-          oreListLevel = 30;
-        }
-        if (miningLevel >= 40) {
-          oreListLevel = 40;
-        }
-        if (miningLevel >= 50) {
-          oreListLevel = 50;
-        }
-        const { oreDefName, amount } = getOre(oreListLevel);
-        const totalAmount = amount + itemAmount;
-        addItemToPlayerBag({
-          ...itemDefList[oreDefName],
-          amount: totalAmount,
-        });
-        increaseMiningXP(Math.round(totalAmount / 2));
-        addMessage({
-          text: `You harvested ${itemDefList[oreDefName].name} x${totalAmount}. ${extraItemsFromToolMessage} ${extraItemMessage}`,
-          type: "success",
-        });
       } else {
         setIsAutoMining(false);
       }
