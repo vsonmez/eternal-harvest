@@ -51,7 +51,7 @@ const Mining = () => {
         });
         increaseMiningXP(Math.round(totalAmount / 2));
         addMessage({
-          text: `You harvested ${oreDefName} x${totalAmount}. ${extraItemsFromToolMessage} ${extraItemMessage}`,
+          text: `You harvested ${itemDefList[oreDefName].name} x${totalAmount}. ${extraItemsFromToolMessage} ${extraItemMessage}`,
           type: "success",
         });
       } else {
