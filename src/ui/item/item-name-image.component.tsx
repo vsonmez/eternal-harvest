@@ -30,7 +30,7 @@ const ItemNameImage: React.FC<Props> = ({ item, isCol }) => {
     <>
       {!isCol && (
         <div className={`flex justify-between items-center gap-2 ${isCol ? "flex-col" : ""}`}>
-          <img src={`./images/${item.defName}.jpeg`} alt="" className="w-10 h-10 border border-gray-700" />
+          <img src={require(`../../../public/images/${item.defName}.jpeg`)} alt="" className="w-10 h-10 border border-gray-700" />
           <span className={rarityClassName}>
             {itemDef.name} <ItemAmountComponent item={item} />
           </span>
@@ -39,7 +39,7 @@ const ItemNameImage: React.FC<Props> = ({ item, isCol }) => {
       {isCol && (
         <div className="relative text-xs">
           <span className={`${rarityClassName} absolute bottom-0 left-0 p-1 text-center`}>{itemDef.name}</span>
-          <img src={`./images/${item.defName}.jpeg`} alt="" className="w-full h-full" />
+          <img src={require(`../../../public/images/${item.defName}.jpeg`)} alt="" className="w-full h-full" />
         </div>
       )}
     </>
