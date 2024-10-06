@@ -9,7 +9,7 @@ import useMessageStore from "./store/hooks/use-message-store.hook";
 
 function App() {
   const { addMessage } = useMessageStore();
-  useTimeTrackerWithReward();
+  /* useTimeTrackerWithReward(); */
 
   React.useEffect(() => {
     addMessage({

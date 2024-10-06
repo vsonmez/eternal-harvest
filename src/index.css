@@ -43,6 +43,12 @@ dialog::backdrop {
     background-size: cover;
     background-position: 0 -150px;
 }
+.carpenter {
+    background-image: url('../public/images/carpenter.jpeg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0 -150px;
+}
 .market::backdrop{
     background-image: url('../public/images/market.jpeg');
 }

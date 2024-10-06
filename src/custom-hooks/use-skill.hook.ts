@@ -17,7 +17,7 @@ const useSkill = (sound: "*.mp3", counterLimit: number, playbackRate?: number, l
   const countdownTime = useGetSkillCountdownTime(itemDef, woodcutterConstant.counterLimit);
   const { count, isActive, startCountdown } = useCountdown(countdownTime);
   const { setIsBusy } = useGlobalStore();
-  const { play } = useSound({ sound, playbackRate, loop });
+  const { play, pause } = useSound({ sound, playbackRate, loop });
   const { addMessage, resetMessageList } = useMessageStore();
   const { addItemToPlayerBag, playerBag } = usePlayerBagStore();
   const { checkHungerValueForSkillSuccess } = useCheckHungerValueForSkill();
@@ -29,6 +29,7 @@ const useSkill = (sound: "*.mp3", counterLimit: number, playbackRate?: number, l
     startCountdown,
     setIsBusy,
     play,
+    pause,
     addMessage,
     resetMessageList,
     addItemToPlayerBag,

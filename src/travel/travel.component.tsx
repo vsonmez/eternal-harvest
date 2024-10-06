@@ -95,6 +95,11 @@ const Travel: React.FC<Props> = ({ onClose }) => {
             </ButtonComponent>
           </li>
           <li>
+            <ButtonComponent disabled={currentLocation === "blackSmithWorkshop"} className="w-72" onClick={() => handleTravel("blackSmithWorkshop")}>
+              <span>Blacksmith Workshop (0.25 hunger)</span>
+            </ButtonComponent>
+          </li>
+          <li>
             <ButtonComponent disabled={currentLocation === "soupKitchen"} className="w-72" onClick={() => handleTravel("soupKitchen")}>
               <span>Soup Kitchen (0.25 hunger)</span>
             </ButtonComponent>

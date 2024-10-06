@@ -5,6 +5,7 @@ import useGlobalStore from "../store/hooks/use-global-store.hook";
 import useTravelStore from "../store/hooks/use-travel-store.hook";
 import useToastrStore from "../store/hooks/use-toastr-store.hook";
 import travelConstants from "../constants/travel.constants";
+import useCarpentryStore from "../store/hooks/skills/use-carpentry-store.hook";
 
 type Props = {
   onClose: () => void;
@@ -14,6 +15,7 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
   const { setSkillActionType } = useGlobalStore();
   const { currentLocation } = useTravelStore();
   const { addToastrMessage } = useToastrStore();
+  const { carpentryLevel } = useCarpentryStore();
 
   const handleSkillAction = React.useCallback(
     (skillActionype: SkillActionTypes) => {
@@ -71,6 +73,23 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
             });
             return;
           }
+        case "carpentry":
+          if (carpentryLevel < 10) {
+            addToastrMessage({
+              type: "error",
+              text: `You need to be carpentry level 10 to use carpentry`,
+            });
+            return;
+          }
+          if (currentLocation === "carpenter") {
+            break;
+          } else {
+            addToastrMessage({
+              type: "error",
+              text: `You can only use capentry in the ${travelConstants.travelLocations.carpenter}`,
+            });
+            return;
+          }
         default:
           break;
       }
@@ -113,10 +132,9 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
           </ButtonComponent>
         </li>
         <li>
-          <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
+          <ButtonComponent disabled={carpentryLevel < 10} className="flex flex-col items-center" onClick={() => handleSkillAction("carpentry")}>
             <img src="./images/carpenter.jpeg" alt="" className="w-32" />
             <span>Carpentry</span>
-            <span>Coming soon</span>
             <span className="text-xs block text-rose-300">Need 10 Woodcutting</span>
           </ButtonComponent>
         </li>

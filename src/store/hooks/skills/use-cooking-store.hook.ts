@@ -1,5 +1,5 @@
 import AppStore from "../..";
-import CookingStore from "../../slices/skills/player-cooking-store.slice";
+import CookingStore from "../../slices/skills/cooking-store.slice";
 
 const useCookingStore = () => {
   const dispatch = AppStore.useAppDispatch();

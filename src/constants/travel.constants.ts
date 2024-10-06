@@ -8,6 +8,7 @@ const travelConstants = {
     forest: "Forest",
     port: "Port",
     soupKitchen: "Soup Kitchen",
+    blackSmithWorkshop: "Blacksmith's Workshop",
   },
 };
 

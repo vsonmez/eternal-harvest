@@ -1,6 +1,6 @@
 import React from "react";
 import useSkill from "../../custom-hooks/use-skill.hook";
-import sound from "../../sounds/chopping.mp3";
+import sound from "../../sounds/mining.mp3";
 import miningConstant from "../../constants/mining.constants";
 import useCollectItemForSkill from "../../custom-hooks/use-collect-item-for-skill.hook";
 import useCheckPickAxe from "./hooks/use-check-pick-axe.hook";
@@ -13,7 +13,7 @@ import getRandonNumber from "../../utils/get-random-number.util";
 
 const Mining = () => {
   const [isAutoMining, setIsAutoMining] = React.useState(false);
-  const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, playerBag, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount } = useSkill(
+  const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, pause, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount } = useSkill(
     sound,
     miningConstant.counterLimit
   );
@@ -25,6 +25,7 @@ const Mining = () => {
   React.useEffect(() => {
     if (count === 0 && isActive) {
       setIsBusy(false);
+      pause();
       if (checkHungerValueForSkillSuccess()) {
         let successChance = 0;
         if (miningLevel <= 10) {

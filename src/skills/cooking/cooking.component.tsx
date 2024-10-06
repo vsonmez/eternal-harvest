@@ -12,8 +12,11 @@ import useCountdown from "../../custom-hooks/use-countdown.hook";
 import usePlayerHungerStore from "../../store/hooks/use-player-hunger-store.hook";
 import useGlobalStore from "../../store/hooks/use-global-store.hook";
 import itemDefList from "../../items/item-def.list";
+import useSound from "../../custom-hooks/use-sound.hook";
+import sound from "../../sounds/cooking.mp3";
 
 const Cooking = () => {
+  const { play, pause } = useSound({ sound });
   const [isAutoCooking, setIsAutoCooking] = React.useState(false);
   const { setIsBusy } = useGlobalStore();
   const { decreaseHungerValue } = usePlayerHungerStore();
@@ -43,7 +46,7 @@ const Cooking = () => {
         decreaseHungerValue(0.1);
         setIsBusy(true);
         startCountdown();
-        /* play(); */
+        play();
       } else {
         addMessage({
           text: "You need to select an item to cook.",
@@ -68,6 +71,7 @@ const Cooking = () => {
   React.useEffect(() => {
     if (count === 0 && isActive && selectedItem) {
       setIsBusy(false);
+      pause();
       increaseCookingXP(1);
       removeItemFromPlayerBag({
         ...selectedItem,
