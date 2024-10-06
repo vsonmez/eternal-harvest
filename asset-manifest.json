@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/eternal-harvest/static/css/main.447e499f.css",
-    "main.js": "/eternal-harvest/static/js/main.c2238a24.js",
+    "main.css": "/eternal-harvest/static/css/main.c54629b3.css",
+    "main.js": "/eternal-harvest/static/js/main.631545d0.js",
     "static/js/453.a49cc2c9.chunk.js": "/eternal-harvest/static/js/453.a49cc2c9.chunk.js",
     "static/media/05.mp3": "/eternal-harvest/static/media/05.55fc6f51b5de6592ab1a.mp3",
     "static/media/01.mp3": "/eternal-harvest/static/media/01.a4b405ad2d8432c9b062.mp3",
@@ -9,6 +9,8 @@
     "static/media/02.mp3": "/eternal-harvest/static/media/02.2e7903b711f6f240550a.mp3",
     "static/media/04.mp3": "/eternal-harvest/static/media/04.7b0a8955b11fd74add16.mp3",
     "static/media/06.mp3": "/eternal-harvest/static/media/06.083cea9bd5cddce7b340.mp3",
+    "static/media/cooking.mp3": "/eternal-harvest/static/media/cooking.8a1f1cd4a95c98ecec56.mp3",
+    "static/media/mining.mp3": "/eternal-harvest/static/media/mining.607d328271a7f219a67a.mp3",
     "static/media/chopping.mp3": "/eternal-harvest/static/media/chopping.69f83d0e212994bbb14f.mp3",
     "static/media/03.mp3": "/eternal-harvest/static/media/03.60f8c806aade73f368a7.mp3",
     "static/media/fishingRodEpic.jpeg": "/eternal-harvest/static/media/fishingRodEpic.6104558cc6cb7c0d1f51.jpeg",
@@ -23,12 +25,14 @@
     "static/media/woodcuttersAxeRare.jpeg": "/eternal-harvest/static/media/woodcuttersAxeRare.3093af6365ab6b84332f.jpeg",
     "static/media/fishingRodUncommon.jpeg": "/eternal-harvest/static/media/fishingRodUncommon.76422dabc54ab3c75041.jpeg",
     "static/media/mine.jpeg": "/eternal-harvest/static/media/mine.34bd4f9ecf8234f3ba15.jpeg",
+    "static/media/carpentry.mp3": "/eternal-harvest/static/media/carpentry.b59815ab2bf018009f34.mp3",
     "static/media/travel.jpg": "/eternal-harvest/static/media/travel.3e3b6019ff297963c5eb.jpg",
     "static/media/woodcutterHat.jpeg": "/eternal-harvest/static/media/woodcutterHat.058358e51eed1243e86f.jpeg",
     "static/media/premium.jpeg": "/eternal-harvest/static/media/premium.8088dc0a9cdae2f94d59.jpeg",
     "static/media/woodcuttersAxeUncommon.jpeg": "/eternal-harvest/static/media/woodcuttersAxeUncommon.2d6a6c001f5db6f18b65.jpeg",
     "static/media/carpenter.jpeg": "/eternal-harvest/static/media/carpenter.815fbe300ef43e4cc649.jpeg",
     "static/media/market.jpeg": "/eternal-harvest/static/media/market.f7bb9eebb6bef4f68246.jpeg",
+    "static/media/blackSmithWorkshop.jpeg": "/eternal-harvest/static/media/blackSmithWorkshop.ef06b41b5dbfdbdb81ac.jpeg",
     "static/media/reward-chest.jpeg": "/eternal-harvest/static/media/reward-chest.b824be710444af0d00e2.jpeg",
     "static/media/fishing.jpeg": "/eternal-harvest/static/media/fishing.6243b015c95c7ba04507.jpeg",
     "static/media/fryingPan.jpeg": "/eternal-harvest/static/media/fryingPan.49dcc8f6f4f3da08064a.jpeg",
@@ -63,11 +67,13 @@
     "static/media/copperOre.jpeg": "/eternal-harvest/static/media/copperOre.8f648780f5bba248fbb2.jpeg",
     "static/media/wood.jpeg": "/eternal-harvest/static/media/wood.1319c3cc5c77a675c990.jpeg",
     "static/media/woodcuttersAxe.jpeg": "/eternal-harvest/static/media/woodcuttersAxe.00cc13b8c0c5bf8de0d2.jpeg",
+    "static/media/woodenPlank.jpeg": "/eternal-harvest/static/media/woodenPlank.98008b9dee26fd172376.jpeg",
     "static/media/blueShoes.jpeg": "/eternal-harvest/static/media/blueShoes.10935b1648fa44662409.jpeg",
     "static/media/obsidianOre.jpeg": "/eternal-harvest/static/media/obsidianOre.560a61191df68b4ea7fb.jpeg",
     "static/media/pickaxeUncommon.jpeg": "/eternal-harvest/static/media/pickaxeUncommon.fb08f6838edfd83f6670.jpeg",
     "static/media/pickaxeRare.jpeg": "/eternal-harvest/static/media/pickaxeRare.c59e941f5d051f7805f5.jpeg",
     "static/media/chest-opening.mp3": "/eternal-harvest/static/media/chest-opening.b79e062d4a6b47a8e557.mp3",
+    "static/media/carpenterHammer.jpeg": "/eternal-harvest/static/media/carpenterHammer.7e77d33bb47fd17d1706.jpeg",
     "static/media/coin.jpeg": "/eternal-harvest/static/media/coin.cb4d708dc80640aba4d4.jpeg",
     "static/media/begging.mp3": "/eternal-harvest/static/media/begging.5116726c63e66fb3ca6e.mp3",
     "static/media/oldShirt.jpeg": "/eternal-harvest/static/media/oldShirt.9463ba2a6aff2febcda2.jpeg",
@@ -92,12 +98,12 @@
     "static/media/fishing.mp3": "/eternal-harvest/static/media/fishing.d1a716670eaa718b52a9.mp3",
     "static/media/coin-dropped.mp3": "/eternal-harvest/static/media/coin-dropped.3c1ba26b82b8e5dba901.mp3",
     "index.html": "/eternal-harvest/index.html",
-    "main.447e499f.css.map": "/eternal-harvest/static/css/main.447e499f.css.map",
-    "main.c2238a24.js.map": "/eternal-harvest/static/js/main.c2238a24.js.map",
+    "main.c54629b3.css.map": "/eternal-harvest/static/css/main.c54629b3.css.map",
+    "main.631545d0.js.map": "/eternal-harvest/static/js/main.631545d0.js.map",
     "453.a49cc2c9.chunk.js.map": "/eternal-harvest/static/js/453.a49cc2c9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.447e499f.css",
-    "static/js/main.c2238a24.js"
+    "static/css/main.c54629b3.css",
+    "static/js/main.631545d0.js"
   ]
 }
