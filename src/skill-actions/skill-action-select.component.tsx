@@ -96,7 +96,7 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
       setSkillActionType(skillActionype);
       onClose();
     },
-    [currentLocation, onClose, setSkillActionType, addToastrMessage]
+    [currentLocation, onClose, setSkillActionType, addToastrMessage, carpentryLevel]
   );
   return (
     <DialogComponent onClose={onClose} title="Action List" className="skillAction">
