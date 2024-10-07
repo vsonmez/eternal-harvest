@@ -16,6 +16,7 @@ import getRandonNumber from "../../utils/get-random-number.util";
 import DecepitonComponent from "../deception/decepiton.component";
 import useDeceptionStore from "../../store/hooks/skills/use-deception-store.hook";
 import FixedNumberComponent from "../../ui/fixed-number.component";
+import Translation from "../../language/transltion";
 
 const Begging = () => {
   const [isAutoBegging, setIsAutoBegging] = React.useState(false);
@@ -28,7 +29,10 @@ const Begging = () => {
   const { addMessage, resetMessageList } = useMessageStore();
   const { count, isActive, startCountdown } = useCountdown(beggingConstant.counterLimit);
   const { decreaseHungerValue } = usePlayerHungerStore();
-  const { setIsBusy } = useGlobalStore();
+  const {
+    setIsBusy,
+    getGlobal: { language },
+  } = useGlobalStore();
   const { deceptionLevel } = useDeceptionStore();
   const deceptionBonus = React.useMemo(() => deceptionLevel / 3, [deceptionLevel]);
 
@@ -36,7 +40,7 @@ const Begging = () => {
     if (playerHandItem) {
       setIsAutoBegging(false);
       addMessage({
-        text: "Your hand must be empty.",
+        text: Translation.translate[language].yourHandMustBeEmpty,
         type: "warning",
       });
       return;
@@ -46,7 +50,7 @@ const Begging = () => {
         setCheckDeceptionEXPgain(false);
       }
       addMessage({
-        text: "You start begging...",
+        text: Translation.translate[language].youStartBegging,
         type: "info",
       });
       decreaseHungerValue(0.3);
@@ -66,20 +70,20 @@ const Begging = () => {
           const coinAmount = getRandonNumber(1, beggingLevel) / 100;
           const doubleCoinAmount = coinAmount * 2;
           addMessage({
-            text: `You got ${Number(isDouble ? doubleCoinAmount : coinAmount).toFixed(2)} coin/s.`,
+            text: Translation.translateFunctions[language].youGotAmountOfItem(Translation.translate[language].gold, Number(isDouble ? doubleCoinAmount : coinAmount).toFixed(2)),
             type: "success",
           });
           addGold(isDouble ? doubleCoinAmount : coinAmount);
         } else {
           addMessage({
-            text: `You got ${beggingRewardResult.name} x${beggingRewardResult.amount}.`,
+            text: Translation.translateFunctions[language].youGotAmountOfItem(beggingRewardResult.name, beggingRewardResult.amount),
             type: "success",
           });
           addItemToPlayerBag(beggingRewardResult);
         }
       } else {
         addMessage({
-          text: "You didn't get anything.",
+          text: Translation.translate[language].youDidntGetAnything,
           type: "info",
         });
       }
@@ -100,7 +104,7 @@ const Begging = () => {
       if (beggingXP >= beggingXPToNextLevel) {
         increaseBeggingLevel();
         addMessage({
-          text: `Begging level increased to ${beggingLevel + 1}`,
+          text: `${Translation.translate[language].levelIncreased}: ${Translation.translate[language].begging} ${beggingLevel + 1}`,
           type: "perfect",
         });
       }
@@ -116,7 +120,7 @@ const Begging = () => {
     <div className="border border-gray-500 p-2 begging flex flex-col gap-2">
       <div className="bg-black/70 p-2 flex items-center justify-between gap-1">
         <h3>
-          Level: {beggingLevel}/{beggingConstant.levelLimit}
+          {Translation.translate[language].level}: {beggingLevel}/{beggingConstant.levelLimit}
         </h3>
         <h3>
           XP: {beggingXP}/{beggingXPToNextLevel}
@@ -125,23 +129,21 @@ const Begging = () => {
       <div className="flex justify-between items-center gap-2">
         <DecepitonComponent checkEXPgain={checkDeceptionEXPgain} />
         <div className="bg-black/70 p-2 flex flex-col gap-1 text-center">
-          <h2>Begging</h2>
+          <h2>{Translation.translate[language].begging}</h2>
           {hasAutoBegging && (
             <label className="flex items-center gap-2">
               <input type="checkbox" checked={isAutoBegging} onChange={() => setIsAutoBegging(!isAutoBegging)} />
-              <span>Auto Begging</span>
+              <span>{Translation.translate[language].autoBegging}</span>
             </label>
           )}
           <ButtonComponent className=" w-[102px]" onClick={begging}>
-            {isActive ? `Begging ${count}` : "Start Begging"}
+            {isActive ? `${Translation.translate[language].begging} ${count}` : `${Translation.translate[language].start}`}
           </ButtonComponent>
         </div>
       </div>
       <div className="bg-black/70 p-2 flex flex-col gap-1">
-        <span>Begging level affects the amount of items gained.</span>
-        <span>
-          +<FixedNumberComponent number={deceptionBonus} />% success bonus from Deception.
-        </span>
+        <span>{Translation.translate[language].beggingLevelaffects}</span>
+        <span>{Translation.translateFunctions[language].skillBonus(Translation.translate[language].decepiton, Number(deceptionBonus).toFixed(2))}</span>
       </div>
     </div>
   );

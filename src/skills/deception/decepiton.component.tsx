@@ -3,12 +3,17 @@ import useDeceptionStore from "../../store/hooks/skills/use-deception-store.hook
 import deceptionConstant from "../../constants/deception.constants";
 import useMessageStore from "../../store/hooks/use-message-store.hook";
 import useBeggingStore from "../../store/hooks/skills/use-begging-store.hook";
+import Translation from "../../language/transltion";
+import useGlobalStore from "../../store/hooks/use-global-store.hook";
 
 type Props = {
   checkEXPgain: boolean;
 };
 
 const Deception: React.FC<Props> = ({ checkEXPgain }) => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const { beggingLevel } = useBeggingStore();
   const { addMessage } = useMessageStore();
   const { deceptionLevel, deceptionXP, deceptionXPToNextLevel, increaseDeceptionXP, increaseDeceptionLevel } = useDeceptionStore();
@@ -17,7 +22,7 @@ const Deception: React.FC<Props> = ({ checkEXPgain }) => {
     if (checkEXPgain) {
       increaseDeceptionXP(1);
       addMessage({
-        text: "You gained deception xp.",
+        text: `${Translation.translate[language].gainedExp} ${Translation.translate[language].decepiton} +1`,
         type: "success",
       });
     }
@@ -29,7 +34,7 @@ const Deception: React.FC<Props> = ({ checkEXPgain }) => {
       if (deceptionXP >= deceptionXPToNextLevel) {
         increaseDeceptionLevel();
         addMessage({
-          text: `Deception level increased to ${deceptionLevel + 1}`,
+          text: `${Translation.translate[language].levelIncreased}: ${Translation.translate[language].decepiton} ${deceptionLevel + 1}`,
           type: "perfect",
         });
       }
@@ -40,7 +45,7 @@ const Deception: React.FC<Props> = ({ checkEXPgain }) => {
     <div className=" flex flex-col gap-2 text-xs text-gray-300">
       <div className="bg-black/60 p-2 flex flex-col gap-1">
         <h2 className="flex justify-between gap-0.5">
-          <span>Deception</span>
+          <span>{Translation.translate[language].decepiton}</span>
           <span>
             {deceptionLevel}/{deceptionConstant.levelLimit}
           </span>
@@ -50,8 +55,8 @@ const Deception: React.FC<Props> = ({ checkEXPgain }) => {
             XP: {deceptionXP}/{deceptionXPToNextLevel}
           </span>
         </h3>
-        <span>Passive Skill</span>
-        {beggingLevel < 10 && <span className="text-rose-300">Need 10 Begging.</span>}
+        <span>{Translation.translate[language].passiveSkill}</span>
+        {beggingLevel < 10 && <span className="text-rose-300">{Translation.translateFunctions[language].needSkillLevel(Translation.translate[language].begging, 10)}</span>}
       </div>
     </div>
   );

@@ -7,6 +7,8 @@ import useFishingStore from "../store/hooks/skills/use-fishing-store.hook";
 import useWoodcutterStore from "../store/hooks/skills/use-woodcutter-store.hook";
 import useCookingStore from "../store/hooks/skills/use-cooking-store.hook";
 import useMiningStore from "../store/hooks/skills/use-mining-store.hook";
+import useGlobalStore from "../store/hooks/use-global-store.hook";
+import Translation from "../language/transltion";
 
 type Props = {
   onClose: () => void;
@@ -19,8 +21,11 @@ const PremiumMarket: React.FC<Props> = ({ onClose }) => {
   const { hasAutoCooking, setAutoCooking } = useCookingStore();
   const { hasAutoMining, setHasAutoMining } = useMiningStore();
   const { addToastrMessage } = useToastrStore();
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   return (
-    <DialogComponent onClose={onClose} title="Premium Market" className="premium">
+    <DialogComponent onClose={onClose} title={Translation.translate[language].premiumMarket} className="premium">
       <ul className="flex flex-col gap-3">
         <li>
           <ButtonComponent
@@ -35,16 +40,10 @@ const PremiumMarket: React.FC<Props> = ({ onClose }) => {
             }}
           >
             <span className="flex items-center gap-2 text-lg">
-              <span>Auto Begging</span>
-              {!hasAutoBegging && <span>Free for test.</span>}
+              <span>{Translation.translate[language].autoBegging}</span>
+              {!hasAutoBegging && <span>{Translation.translate[language].freeForTest}</span>}
             </span>
-            {hasAutoBegging && <span>Already bought</span>}
-            {!hasAutoBegging && (
-              <>
-                <span>This is not an idle feature.</span>
-                <span>It just automatically clicks the button.</span>
-              </>
-            )}
+            {hasAutoBegging && <span>{Translation.translate[language].alreadyBought}</span>}
           </ButtonComponent>
         </li>
         <li>
@@ -60,16 +59,10 @@ const PremiumMarket: React.FC<Props> = ({ onClose }) => {
             }}
           >
             <span className="flex items-center gap-2 text-lg">
-              <span>Auto Fishing</span>
-              {!hasAutoFishing && <span>Free for test.</span>}
+              <span>{Translation.translate[language].autoFishing}</span>
+              {!hasAutoFishing && <span>{Translation.translate[language].freeForTest}</span>}
             </span>
-            {hasAutoFishing && <span>Already bought</span>}
-            {!hasAutoFishing && (
-              <>
-                <span>This is not an idle feature.</span>
-                <span>It just automatically clicks the button.</span>
-              </>
-            )}
+            {hasAutoFishing && <span>{Translation.translate[language].alreadyBought}</span>}
           </ButtonComponent>
         </li>
         <li>
@@ -85,16 +78,10 @@ const PremiumMarket: React.FC<Props> = ({ onClose }) => {
             }}
           >
             <span className="flex items-center gap-2 text-lg">
-              <span>Auto Woodcutting</span>
-              {!hasAutoWoodcutting && <span>Free for test.</span>}
+              <span>{Translation.translate[language].autoWoodcutting}</span>
+              {!hasAutoWoodcutting && <span>{Translation.translate[language].freeForTest}</span>}
             </span>
-            {hasAutoWoodcutting && <span>Already bought</span>}
-            {!hasAutoWoodcutting && (
-              <>
-                <span>This is not an idle feature.</span>
-                <span>It just automatically clicks the button.</span>
-              </>
-            )}
+            {hasAutoWoodcutting && <span>{Translation.translate[language].alreadyBought}</span>}
           </ButtonComponent>
         </li>
         <li>
@@ -110,16 +97,10 @@ const PremiumMarket: React.FC<Props> = ({ onClose }) => {
             }}
           >
             <span className="flex items-center gap-2 text-lg">
-              <span>Auto Cooking</span>
-              {!hasAutoCooking && <span>Free for test.</span>}
+              <span>{Translation.translate[language].autoCooking}</span>
+              {!hasAutoCooking && <span>{Translation.translate[language].freeForTest}</span>}
             </span>
-            {hasAutoCooking && <span>Already bought</span>}
-            {!hasAutoCooking && (
-              <>
-                <span>This is not an idle feature.</span>
-                <span>It just automatically clicks the button.</span>
-              </>
-            )}
+            {hasAutoCooking && <span>{Translation.translate[language].alreadyBought}</span>}
           </ButtonComponent>
         </li>
         <li>
@@ -135,16 +116,10 @@ const PremiumMarket: React.FC<Props> = ({ onClose }) => {
             }}
           >
             <span className="flex items-center gap-2 text-lg">
-              <span>Auto Mining</span>
-              {!hasAutoMining && <span>Free for test.</span>}
+              <span>{Translation.translate[language].autoMining}</span>
+              {!hasAutoMining && <span>{Translation.translate[language].freeForTest}</span>}
             </span>
-            {hasAutoMining && <span>Already bought</span>}
-            {!hasAutoMining && (
-              <>
-                <span>This is not an idle feature.</span>
-                <span>It just automatically clicks the button.</span>
-              </>
-            )}
+            {hasAutoMining && <span>{Translation.translate[language].alreadyBought}</span>}
           </ButtonComponent>
         </li>
       </ul>

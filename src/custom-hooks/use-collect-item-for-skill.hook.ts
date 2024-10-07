@@ -7,12 +7,16 @@ import checkItemTakingDamage from "../utils/check-item-taking-damage.util";
 import usePlayerBagStore from "../store/hooks/use-player-bag-store.hook";
 import usePlayerEquipmentStore from "../store/hooks/use-player-equipment-store.hook";
 import BagItem from "../items/models/bag-item.type";
+import Translation from "../language/transltion";
 
 const useCollectItemForSkill = (canUseSkill: boolean, isActive: boolean, startCountdown: () => void, play: () => void) => {
   const { checkHungerValue } = useCheckHungerValueForSkill();
   const { addMessage } = useMessageStore();
   const { decreaseHungerValue } = usePlayerHungerStore();
-  const { setIsBusy } = useGlobalStore();
+  const {
+    setIsBusy,
+    getGlobal: { language },
+  } = useGlobalStore();
   const { setPlayerHandItem, playerHandItem } = usePlayerEquipmentStore();
   const { removeItemFromPlayerBag } = usePlayerBagStore();
 
@@ -23,7 +27,7 @@ const useCollectItemForSkill = (canUseSkill: boolean, isActive: boolean, startCo
         setPlayerHandItem(null);
         removeItemFromPlayerBag({ ...playerHandItem } as BagItem);
         addMessage({
-          text: "YOUR ITEM IS BROKEN!",
+          text: Translation.translateFunctions[language].itemBroken(playerHandItem!.name),
           type: "warning",
         });
         setIsBusy(false);
@@ -31,7 +35,7 @@ const useCollectItemForSkill = (canUseSkill: boolean, isActive: boolean, startCo
       }
       if (!isActive) {
         addMessage({
-          text: "Harvesting...",
+          text: Translation.translate[language].harvesting,
           type: "info",
         });
         decreaseHungerValue(1);

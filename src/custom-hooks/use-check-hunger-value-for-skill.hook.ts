@@ -2,17 +2,22 @@ import React from "react";
 import useMessageStore from "../store/hooks/use-message-store.hook";
 import usePlayerHungerStore from "../store/hooks/use-player-hunger-store.hook";
 import getRandonNumber from "../utils/get-random-number.util";
+import useGlobalStore from "../store/hooks/use-global-store.hook";
+import Translation from "../language/transltion";
 
 const useCheckHungerValueForSkill = () => {
   const { playerHungerValue } = usePlayerHungerStore();
   const { addMessage } = useMessageStore();
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
 
   const showMessage = React.useCallback(() => {
     addMessage({
-      text: "You failed. Because you are too hungry.",
+      text: Translation.translate[language].youFailedHungry,
       type: "warning",
     });
-  }, [addMessage]);
+  }, [addMessage, language]);
 
   const checkHungerValueForSkillSuccess = React.useCallback(() => {
     if (playerHungerValue <= 30) {

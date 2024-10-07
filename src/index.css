@@ -23,7 +23,7 @@ dialog::backdrop {
     background-image: url('../public/images/begging.jpeg');
     background-repeat: no-repeat;
     background-size: cover;
-    background-position: 0 -150px;
+    background-position: 0 -110px;
 }
 .fishing {
     background-image: url('../public/images/fishing.jpeg');
