@@ -3,6 +3,8 @@ import usePlayerHungerStore from "../../store/hooks/use-player-hunger-store.hook
 import useMessageStore from "../../store/hooks/use-message-store.hook";
 import playerHungerLimit from "../../constants/player-hunger-limit.constant";
 import FixedNumberComponent from "../fixed-number.component";
+import useGlobalStore from "../../store/hooks/use-global-store.hook";
+import Translation from "../../language/transltion";
 
 type Props = {
   showText?: boolean;
@@ -11,6 +13,9 @@ type Props = {
 const HeaderHunger: React.FC<Props> = ({ showText }) => {
   const { playerHungerValue } = usePlayerHungerStore();
   const { addMessage } = useMessageStore();
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
 
   const cssClassByHungerValue = () => {
     if (playerHungerValue <= 50 && playerHungerValue > 30) {
@@ -68,7 +73,7 @@ const HeaderHunger: React.FC<Props> = ({ showText }) => {
   return (
     <div className="flex items-center">
       {!showText && <img src="./images/bread.jpeg" alt="" className="w-8 h-8" />}
-      {showText && <span className="mr-1">Hunger:</span>}
+      {showText && <span className="mr-1">{Translation.translate[language].hunger}:</span>}
       <strong>
         <span className={cssClassByHungerValue()}>
           <FixedNumberComponent number={playerHungerValue} />

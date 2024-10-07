@@ -8,12 +8,17 @@ import BagItem from "../items/models/bag-item.type";
 import getItemDef from "../utils/get-item-def.util";
 import sound from "../sounds/eating.mp3";
 import useSound from "../custom-hooks/use-sound.hook";
+import useGlobalStore from "../store/hooks/use-global-store.hook";
+import Translation from "../language/transltion";
 
 type Props = {
   item: BagItem;
 };
 
 const EatButton: React.FC<Props> = ({ item }) => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const { play } = useSound({ sound });
   const itemDef = React.useMemo(() => getItemDef(item.defName), [item]);
   const { removeItemFromPlayerBag } = usePlayerBagStore();
@@ -43,7 +48,7 @@ const EatButton: React.FC<Props> = ({ item }) => {
     }
   }, [item, removeItemFromPlayerBag, increaseHungerValue, playerHungerValue, addToastrMessage, itemDef, play]);
 
-  return <ButtonComponent onClick={handleEat}>Eat</ButtonComponent>;
+  return <ButtonComponent onClick={handleEat}>{Translation.translate[language].eat}</ButtonComponent>;
 };
 
 export default React.memo(EatButton);

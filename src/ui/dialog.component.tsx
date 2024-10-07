@@ -6,6 +6,8 @@ import GoldViewComponent from "./gold-view.component";
 import ToastrComponent from "../toastr/toastr.component";
 import useToastrStore from "../store/hooks/use-toastr-store.hook";
 import HeaderHungerComponent from "./header/header-hunger.component";
+import useGlobalStore from "../store/hooks/use-global-store.hook";
+import Translation from "../language/transltion";
 
 type Props = {
   onClose: () => void;
@@ -18,6 +20,9 @@ type Props = {
 };
 
 const Dialog: React.FC<Props> = ({ onClose, title, children, className, showGold, showHunger, addOn }) => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const { playerGold } = usePlayerGoldStore();
   const dialog = React.useRef<HTMLDialogElement>(null);
   const { resetToastrList } = useToastrStore();
@@ -40,7 +45,7 @@ const Dialog: React.FC<Props> = ({ onClose, title, children, className, showGold
           <div className="flex flex-col">
             {showGold && (
               <div className="flex items-center gap-0.5">
-                <span>Gold:</span>
+                <span>{Translation.translate[language].gold}:</span>
                 <strong>
                   <GoldViewComponent goldAmount={playerGold} />
                 </strong>

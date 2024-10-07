@@ -6,30 +6,22 @@ import useTimeTrackerWithReward from "./custom-hooks/use-time-tracker-with-reawr
 import FooterComponent from "./ui/footer/footer.component";
 import LocationInfoComponent from "./travel/location-info.component";
 import useMessageStore from "./store/hooks/use-message-store.hook";
+import Translation from "./language/transltion";
 
 function App() {
+  const language = React.useMemo(() => localStorage.getItem("language") || "en", []);
   const { addMessage } = useMessageStore();
   useTimeTrackerWithReward();
 
   React.useEffect(() => {
-    addMessage({
-      text: "You can buy/sell stuff only from Market Place.",
-      type: "success",
-    });
-    addMessage({
-      text: "I promise you there will be no ads in this game!",
-      type: "warning",
-    });
-    addMessage({
-      text: "Wiki pages will be added soon.",
-      type: "info",
-    });
-    addMessage({
-      text: "Welcome to your adventure. Good luck!",
-      type: "info",
+    Translation.welcomeMessages.forEach((message) => {
+      addMessage({
+        text: language === "en" ? message.en : message.tr,
+        type: message.type as MessageTypes,
+      });
     });
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [language]);
 
   return (
     <div className="h-screen flex flex-col m-auto">

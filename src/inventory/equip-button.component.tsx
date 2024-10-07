@@ -7,12 +7,17 @@ import BagItem from "../items/models/bag-item.type";
 import getItemDef from "../utils/get-item-def.util";
 import useWoodcutterStore from "../store/hooks/skills/use-woodcutter-store.hook";
 import checkSkillLevelForItemLevel from "../utils/check-skill-level-for-item-level.util";
+import useGlobalStore from "../store/hooks/use-global-store.hook";
+import Translation from "../language/transltion";
 
 type Props = {
   item: BagItem;
 };
 
 const EquipButton: React.FC<Props> = ({ item }) => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const [requiredSkillName, setRequiredSkillName] = React.useState<string | undefined>();
   const { woodcutterLevel } = useWoodcutterStore();
   const itemDef = React.useMemo(() => getItemDef(item.defName), [item]);
@@ -126,7 +131,11 @@ const EquipButton: React.FC<Props> = ({ item }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [itemDef]);
 
-  return <ButtonComponent onClick={item.isEquipped ? () => handleUnequip() : () => handleEquip(item.equipSlot)}>{item.isEquipped ? <span>Unequip</span> : <span>Equip</span>}</ButtonComponent>;
+  return (
+    <ButtonComponent onClick={item.isEquipped ? () => handleUnequip() : () => handleEquip(item.equipSlot)}>
+      {item.isEquipped ? <span>{Translation.translate[language].unequip}</span> : <span>{Translation.translate[language].equip}</span>}
+    </ButtonComponent>
+  );
 };
 
 export default React.memo(EquipButton);

@@ -9,6 +9,9 @@ type ItemRarity = "common" | "uncommon" | "rare" | "epic" | "legendary";
 type ItemEqipSlot = "hand" | "head" | "body" | "feet" | "handLeft" | "legs" | undefined;
 type ItemType = "tool" | "rawMaterial" | "clothes" | "food";
 type CityLocations = "cityCenter" | "marketPlace" | "carpenter" | "soupKitchen" | "port" | "forest" | "mines" | "blackSmithWorkshop";
+type LocationsTranslations = {
+  [key in CityLocations]: string;
+};
 
 type Message = {
   text: string;

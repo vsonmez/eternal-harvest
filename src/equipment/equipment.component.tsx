@@ -6,14 +6,19 @@ import HeadEquipmentComponent from "./head-equipment.component";
 import LegsEquipmentComponent from "./legs-equipment.component";
 import FeetEquipmentComponent from "./feet-equipment.component";
 import BodyEquipmentComponent from "./body-equipment.component";
+import useGlobalStore from "../store/hooks/use-global-store.hook";
+import Translation from "../language/transltion";
 
 type Props = {
   onClose: () => void;
 };
 
 const Equipment: React.FC<Props> = ({ onClose }) => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   return (
-    <DialogComponent onClose={onClose} title="Equipment" className="equipment">
+    <DialogComponent onClose={onClose} title={Translation.translate[language].equipment} className="equipment">
       <ul className="flex flex-col items-center gap-2 w-80">
         <li className="w-[100px]">
           <HeadEquipmentComponent />

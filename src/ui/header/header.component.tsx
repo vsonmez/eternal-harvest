@@ -11,8 +11,10 @@ const Header = () => {
         <HeaderHungerComponent />
         <HeaderGoldComponent />
       </div>
-      <BgSoundComponent />
-      <HeaderLanguageSelectComponent />
+      <div className="flex gap-2 items-center">
+        <BgSoundComponent />
+        <HeaderLanguageSelectComponent />
+      </div>
     </header>
   );
 };

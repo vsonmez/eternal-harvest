@@ -1,15 +1,21 @@
 import React from "react";
 import BagItem from "../../items/models/bag-item.type";
+import useGlobalStore from "../../store/hooks/use-global-store.hook";
+import Translation from "../../language/transltion";
 
 type Props = {
   item: BagItem;
 };
 
-const itemLockedWarning: React.FC<Props> = ({ item }) => {
+const ItemLockedWarning: React.FC<Props> = ({ item }) => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
+
   if (item.isLocked) {
-    return <span className="text-rose-300 font-light text-xs italic">Cannot be sold because it is locked.</span>;
+    return <span className="text-rose-300 font-light text-xs italic">{Translation.translate[language].cannotSoldLocked}</span>;
   }
   return <></>;
 };
 
-export default React.memo(itemLockedWarning);
+export default React.memo(ItemLockedWarning);

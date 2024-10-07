@@ -10,6 +10,8 @@ import coinDrooppedSound from "../sounds/coin-dropped.mp3";
 import useSound from "../custom-hooks/use-sound.hook";
 import useTravelStore from "../store/hooks/use-travel-store.hook";
 import travelConstants from "../constants/travel.constants";
+import useGlobalStore from "../store/hooks/use-global-store.hook";
+import Translation from "../language/transltion";
 
 type Props = {
   item: BagItem;
@@ -17,6 +19,9 @@ type Props = {
 };
 
 const SellButton: React.FC<Props> = ({ item, disabled }) => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const { currentLocation } = useTravelStore();
   const { play } = useSound({ sound: coinDrooppedSound });
   const itemDef = React.useMemo(() => getItemDef(item.defName), [item]);
@@ -55,7 +60,7 @@ const SellButton: React.FC<Props> = ({ item, disabled }) => {
 
   return (
     <ButtonComponent className="flex gap-2" disabled={disabled || isDisabled} onClick={handleSell}>
-      <span>Sell</span>
+      <span>{Translation.translate[language].sell}</span>
       <span>
         (<FixedNumberComponent number={itemDef.price / 2} /> gp)
       </span>

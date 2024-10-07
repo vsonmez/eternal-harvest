@@ -9,6 +9,7 @@ import useToastrStore from "../store/hooks/use-toastr-store.hook";
 import { ArrowRightIcon } from "@heroicons/react/24/outline";
 import usePlayerHungerStore from "../store/hooks/use-player-hunger-store.hook";
 import useMessageStore from "../store/hooks/use-message-store.hook";
+import Translation from "../language/transltion";
 
 type Props = {
   onClose: () => void;
@@ -17,7 +18,11 @@ const Travel: React.FC<Props> = ({ onClose }) => {
   const { decreaseHungerValue, playerHungerValue } = usePlayerHungerStore();
   const { currentLocation, destination, setCurrentLocation, setDestination } = useTravelStore();
   const [selectedLocation, setSelectedLocation] = React.useState<CityLocations>(currentLocation);
-  const { setIsBusy, setSkillActionType } = useGlobalStore();
+  const {
+    setIsBusy,
+    setSkillActionType,
+    getGlobal: { language },
+  } = useGlobalStore();
   const { count, isActive, startCountdown } = useCountdown(travelConstants.travelTime);
   const { addToastrMessage } = useToastrStore();
   const { addMessage } = useMessageStore();
@@ -63,14 +68,12 @@ const Travel: React.FC<Props> = ({ onClose }) => {
   }, [count, isActive, selectedLocation]);
 
   return (
-    <DialogComponent onClose={onClose} title="Travel" className="travel" showGold showHunger>
+    <DialogComponent onClose={onClose} title={Translation.translate[language].travel} className="travel" showGold showHunger>
       <>
         <ul className="flex flex-col gap-3 w-80 items-center">
           <li className="text-xs flex flex-col gap-1 items-center">
-            <span> You are in {travelConstants.travelLocations[currentLocation]}</span>
-            <span>
-              You will arrive at your destination in <span className="text-orange-400 text-sm">{count}</span> seconds.
-            </span>
+            <span>{Translation.translateFunctions[language].youAreIn(travelConstants.travelLocations[currentLocation])}</span>
+            <span>{Translation.translateFunctions[language].youWillArriveIn(count)}</span>
           </li>
           {destination && (
             <li className="flex gap-2 items-center">
@@ -81,42 +84,56 @@ const Travel: React.FC<Props> = ({ onClose }) => {
           )}
           <li>
             <ButtonComponent disabled={currentLocation === "cityCenter"} className="w-72" onClick={() => handleTravel("cityCenter")}>
-              <span>City Center (0.25 hunger)</span>
+              <span>
+                {Translation.locationsTranslations[language].cityCenter} (0.25 {Translation.translate[language].hunger})
+              </span>
             </ButtonComponent>
           </li>
           <li>
             <ButtonComponent disabled={currentLocation === "marketPlace"} className="w-72" onClick={() => handleTravel("marketPlace")}>
-              <span>Market Place (0.25 hunger)</span>
+              <span>
+                {Translation.locationsTranslations[language].marketPlace} (0.25 {Translation.translate[language].hunger})
+              </span>
             </ButtonComponent>
           </li>
           <li>
             <ButtonComponent disabled={currentLocation === "carpenter"} className="w-72" onClick={() => handleTravel("carpenter")}>
-              <span>Carpenter's Workshop (0.25 hunger)</span>
+              <span>
+                {Translation.locationsTranslations[language].carpenter} (0.25 {Translation.translate[language].hunger})
+              </span>
             </ButtonComponent>
           </li>
           <li>
             <ButtonComponent disabled={currentLocation === "blackSmithWorkshop"} className="w-72" onClick={() => handleTravel("blackSmithWorkshop")}>
-              <span>Blacksmith Workshop (0.25 hunger)</span>
+              <span>
+                {Translation.locationsTranslations[language].blackSmithWorkshop} (0.25 {Translation.translate[language].hunger})
+              </span>
             </ButtonComponent>
           </li>
           <li>
             <ButtonComponent disabled={currentLocation === "soupKitchen"} className="w-72" onClick={() => handleTravel("soupKitchen")}>
-              <span>Soup Kitchen (0.25 hunger)</span>
+              <span>
+                {Translation.locationsTranslations[language].soupKitchen} (0.25 {Translation.translate[language].hunger})
+              </span>
             </ButtonComponent>
           </li>
           <li>
             <ButtonComponent disabled={currentLocation === "port"} className="w-72" onClick={() => handleTravel("port")}>
-              <span>Port (0.25 hunger)</span>
+              <span>
+                {Translation.locationsTranslations[language].port} (0.25 {Translation.translate[language].hunger})
+              </span>
             </ButtonComponent>
           </li>
           <li>
             <ButtonComponent disabled={currentLocation === "forest"} className="w-72" onClick={() => handleTravel("forest")}>
-              <span>Forest (0.25 hunger)</span>
+              <span>
+                {Translation.locationsTranslations[language].forest} (0.25 {Translation.translate[language].hunger})
+              </span>
             </ButtonComponent>
           </li>
           <li>
             <ButtonComponent disabled={currentLocation === "mines"} className="w-72" onClick={() => handleTravel("mines")}>
-              <span>Mines (0.25 hunger)</span>
+              <span>{Translation.locationsTranslations[language].mines} (0.25 hunger)</span>
             </ButtonComponent>
           </li>
         </ul>

@@ -5,16 +5,21 @@ import MarketItemComponent from "./market-item.component";
 import useFilterItemsbyItemType from "../custom-hooks/use-filter-items.hook";
 import ItemfilterButtons from "../ui/item/item-filter-buttons";
 import Item from "../items/models/item.type";
+import Translation from "../language/transltion";
+import useGlobalStore from "../store/hooks/use-global-store.hook";
 
 type Props = {
   onClose: () => void;
 };
 
 const Market: React.FC<Props> = ({ onClose }) => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const buyableItems = React.useMemo(() => getBuyableItems(), []);
   const { filterItems, filteredItems } = useFilterItemsbyItemType(buyableItems);
   return (
-    <DialogComponent addOn={<ItemfilterButtons filterItems={filterItems} />} onClose={onClose} title="Market" className="market" showGold showHunger>
+    <DialogComponent addOn={<ItemfilterButtons filterItems={filterItems} />} onClose={onClose} title={Translation.translate[language].market} className="market" showGold showHunger>
       <ul className="flex flex-col gap-3 w-80">
         {((filteredItems as Item[]) || buyableItems).map((item) => (
           <li key={item.defName}>

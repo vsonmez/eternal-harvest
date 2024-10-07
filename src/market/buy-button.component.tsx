@@ -8,6 +8,8 @@ import { MinusIcon, PlusIcon } from "@heroicons/react/24/outline";
 import FixedNumberComponent from "../ui/fixed-number.component";
 import coinDropBuySound from "../sounds/coin-drop-buy.mp3";
 import useSound from "../custom-hooks/use-sound.hook";
+import useGlobalStore from "../store/hooks/use-global-store.hook";
+import Translation from "../language/transltion";
 
 type Props = {
   item: Item;
@@ -19,6 +21,9 @@ const BuyButton: React.FC<Props> = ({ item }) => {
   const { addToastrMessage } = useToastrStore();
   const { addItemToPlayerBag } = usePlayerBagStore();
   const { playerGold, removeGold } = usePlayerGoldStore();
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
 
   const handleIncreaseAmount = React.useCallback(() => {
     setAmount((prev) => prev + 1);
@@ -74,7 +79,7 @@ const BuyButton: React.FC<Props> = ({ item }) => {
         </ButtonComponent>
       </div>
       <ButtonComponent className="flex gap-2" onClick={handleBuy}>
-        <span>Buy</span>
+        <span>{Translation.translate[language].buy}</span>
         <span>
           (<FixedNumberComponent number={item.price * amount} />
           gp)

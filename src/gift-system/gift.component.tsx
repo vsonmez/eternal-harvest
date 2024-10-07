@@ -11,12 +11,17 @@ import getRewardItemList from "../utils/get-reward-item-list";
 import sound from "../sounds/chest-opening.mp3";
 import useSound from "../custom-hooks/use-sound.hook";
 import usePlayerGoldStore from "../store/hooks/use-player-gold-store.hook";
+import useGlobalStore from "../store/hooks/use-global-store.hook";
+import Translation from "../language/transltion";
 
 type Props = {
   onClose: () => void;
 };
 
 const Gift: React.FC<Props> = ({ onClose }) => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const { addGold } = usePlayerGoldStore();
   const { play } = useSound(sound);
   const { addToastrMessage } = useToastrStore();
@@ -67,21 +72,23 @@ const Gift: React.FC<Props> = ({ onClose }) => {
   }, [addGold, addItemToPlayerBag, addToastrMessage, decreaseRewardCount, play, rewardLevel]);
 
   return (
-    <DialogComponent onClose={onClose} title="Gift" className="gift">
+    <DialogComponent onClose={onClose} title={Translation.translate[language].reward} className="gift">
       <ul className="flex flex-col gap-3">
         <li className="flex flex-col gap-1 items-center justify-center">
-          <span className="text-3xl">Reward LVL: {rewardLevel}</span>
+          <span className="text-3xl">
+            {Translation.translate[language].reward} {Translation.translate[language].level}: {rewardLevel}
+          </span>
         </li>
         <li className="flex flex-col gap-1 items-center justify-center">
-          <strong>Total time you spend in the game:</strong>
+          <strong>{Translation.translate[language].totalTimeUspandInGame}:</strong>
           <span>{formatTime(timeSpent)}</span>
         </li>
         <li className="flex flex-col gap-1 items-center justify-center">
-          <span>You get a gift in every half hour.</span>
+          <span>{Translation.translate[language].youGetaGiftEveryHalfHour}</span>
           <span> {formatTime(timeToNextReward)}</span>
         </li>
         <li className="flex flex-col gap-1 items-center justify-center bg-yellow-500 text-black p-2">
-          <strong className="text-3xl">Rewards:</strong>
+          <strong className="text-3xl">{Translation.translate[language].rewards}</strong>
           <span className="text-3xl">{rewardCount}</span>
           <GiftIcon className="w-32 h-32" />
           {rewardCount > 0 && (

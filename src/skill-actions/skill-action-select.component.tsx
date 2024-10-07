@@ -6,13 +6,17 @@ import useTravelStore from "../store/hooks/use-travel-store.hook";
 import useToastrStore from "../store/hooks/use-toastr-store.hook";
 import travelConstants from "../constants/travel.constants";
 import useCarpentryStore from "../store/hooks/skills/use-carpentry-store.hook";
+import Translation from "../language/transltion";
 
 type Props = {
   onClose: () => void;
 };
 
 const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
-  const { setSkillActionType } = useGlobalStore();
+  const {
+    setSkillActionType,
+    getGlobal: { language },
+  } = useGlobalStore();
   const { currentLocation } = useTravelStore();
   const { addToastrMessage } = useToastrStore();
   const { carpentryLevel } = useCarpentryStore();
@@ -99,52 +103,52 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
     [currentLocation, onClose, setSkillActionType, addToastrMessage, carpentryLevel]
   );
   return (
-    <DialogComponent onClose={onClose} title="Action List" className="skillAction">
+    <DialogComponent onClose={onClose} title={Translation.translate[language].actionList} className="skillAction">
       <ul className="flex flex-col gap-3">
         <li>
           <ButtonComponent onClick={() => handleSkillAction("begging")}>
             <img src="./images/begging.jpeg" alt="" className="w-32" />
-            <span>Begging</span>
+            <span>{Translation.translate[language].begging}</span>
           </ButtonComponent>
         </li>
         <li>
           <ButtonComponent onClick={() => handleSkillAction("woodcutting")}>
             <img src="./images/woodcutter.jpeg" alt="" className="w-32" />
-            <span>Woodcutting</span>
+            <span>{Translation.translate[language].woodcutting}</span>
           </ButtonComponent>
         </li>
         <li>
           <ButtonComponent className="flex flex-col items-center" onClick={() => handleSkillAction("fishing")}>
             <img src="./images/fishing.jpeg" alt="" className="w-32" />
-            <span>Fishing</span>
+            <span>{Translation.translate[language].fishing}</span>
           </ButtonComponent>
         </li>
         <li>
           <ButtonComponent className="flex flex-col items-center" onClick={() => handleSkillAction("cooking")}>
             <img src="./images/cooking.jpeg" alt="" className="w-32" />
-            <span>Cooking</span>
+            <span>{Translation.translate[language].cooking}</span>
           </ButtonComponent>
         </li>
         <li>
           <ButtonComponent className="flex flex-col items-center" onClick={() => handleSkillAction("mining")}>
             <img src="./images/mine.jpeg" alt="" className="w-32" />
-            <span>Mining</span>
+            <span>{Translation.translate[language].mining}</span>
           </ButtonComponent>
         </li>
         <li>
           <ButtonComponent disabled={carpentryLevel < 10} className="flex flex-col items-center" onClick={() => handleSkillAction("carpentry")}>
             <img src="./images/carpenter.jpeg" alt="" className="w-32" />
-            <span>Carpentry</span>
-            <span className="text-xs block text-rose-300">Need 10 Woodcutting</span>
+            <span>{Translation.translate[language].carpentry}</span>
+            <span className="text-xs block text-rose-300">{Translation.translateFunctions[language].needSkillLevel("Woodcutting", 10)}</span>
           </ButtonComponent>
         </li>
 
         <li>
           <ButtonComponent className="flex flex-col items-center" onClick={() => {}} disabled>
             <img src="./images/robbery.jpeg" alt="" className="w-32" />
-            <span>Robbery</span>
-            <span>Coming soon</span>
-            <span className="text-xs text-rose-300">Need 10 Deception</span>
+            <span>{Translation.translate[language].robbery}</span>
+            <span>{Translation.translate[language].comingSoon}</span>
+            <span className="text-xs text-rose-300">{Translation.translateFunctions[language].needSkillLevel("Deception", 10)}</span>
           </ButtonComponent>
         </li>
       </ul>

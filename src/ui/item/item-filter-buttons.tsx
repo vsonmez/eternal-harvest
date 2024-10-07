@@ -1,5 +1,7 @@
 import React from "react";
 import ButtonComponent from "../button.component";
+import useGlobalStore from "../../store/hooks/use-global-store.hook";
+import Translation from "../../language/transltion";
 
 type Props = {
   filterItems: (itemType: ItemType | undefined) => void;
@@ -7,6 +9,9 @@ type Props = {
 };
 
 const ItemfilterButtons: React.FC<Props> = ({ filterItems, isInBag }) => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const [selectedFilter, setSelectedFilter] = React.useState<ItemType | undefined>(undefined);
 
   const handleFilter = (itemType: ItemType | undefined) => {
@@ -16,20 +21,20 @@ const ItemfilterButtons: React.FC<Props> = ({ filterItems, isInBag }) => {
   return (
     <>
       <ButtonComponent className={`border-r-0 ${selectedFilter === undefined ? "bg-gray-600" : ""}`} onClick={() => handleFilter(undefined)}>
-        All
+        {Translation.translate[language].all}
       </ButtonComponent>
       <ButtonComponent className={`${selectedFilter === "food" ? "bg-gray-600" : ""}`} onClick={() => handleFilter("food")}>
-        Foods
+        {Translation.translate[language].foods}
       </ButtonComponent>
       <ButtonComponent className={`border-x-0 ${selectedFilter === "clothes" ? "bg-gray-600" : ""}`} onClick={() => handleFilter("clothes")}>
-        Clothes
+        {Translation.translate[language].clothes}
       </ButtonComponent>
       <ButtonComponent className={`${selectedFilter === "tool" ? "bg-gray-600" : ""}`} onClick={() => handleFilter("tool")}>
-        Tools
+        {Translation.translate[language].tools}
       </ButtonComponent>
       {isInBag && (
         <ButtonComponent className={`${selectedFilter === "rawMaterial" ? "bg-gray-600" : ""}`} onClick={() => handleFilter("rawMaterial")}>
-          Materials
+          {Translation.translate[language].materials}
         </ButtonComponent>
       )}
     </>
