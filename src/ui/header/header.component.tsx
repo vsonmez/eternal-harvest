@@ -2,6 +2,7 @@ import React from "react";
 import BgSoundComponent from "../bg-sound.component";
 import HeaderHungerComponent from "./header-hunger.component";
 import HeaderGoldComponent from "./header-gold.component";
+import HeaderLanguageSelectComponent from "./header-language-select.component";
 
 const Header = () => {
   return (
@@ -11,6 +12,7 @@ const Header = () => {
         <HeaderGoldComponent />
       </div>
       <BgSoundComponent />
+      <HeaderLanguageSelectComponent />
     </header>
   );
 };
