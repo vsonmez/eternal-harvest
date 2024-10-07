@@ -4,7 +4,7 @@ import sound from "../../sounds/mining.mp3";
 import miningConstant from "../../constants/mining.constants";
 import useCollectItemForSkill from "../../custom-hooks/use-collect-item-for-skill.hook";
 import useCheckPickAxe from "./hooks/use-check-pick-axe.hook";
-import useMiningStore from "../../store/hooks/skills/mining-store.hook";
+import useMiningStore from "../../store/hooks/skills/use-mining-store.hook";
 import getExtraItemByLevel from "../../utils/get-extra-item-by-level.util";
 import itemDefList from "../../items/item-def.list";
 import ButtonComponent from "../../ui/button.component";

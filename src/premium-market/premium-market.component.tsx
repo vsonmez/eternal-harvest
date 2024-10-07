@@ -6,7 +6,7 @@ import useToastrStore from "../store/hooks/use-toastr-store.hook";
 import useFishingStore from "../store/hooks/skills/use-fishing-store.hook";
 import useWoodcutterStore from "../store/hooks/skills/use-woodcutter-store.hook";
 import useCookingStore from "../store/hooks/skills/use-cooking-store.hook";
-import useMiningStore from "../store/hooks/skills/mining-store.hook";
+import useMiningStore from "../store/hooks/skills/use-mining-store.hook";
 
 type Props = {
   onClose: () => void;

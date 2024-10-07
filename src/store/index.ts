@@ -18,6 +18,7 @@ import FishingStore from "./slices/skills/fishing-store.slice";
 import CookingStore from "./slices/skills/cooking-store.slice";
 import MiningStore from "./slices/skills/mining-store.slice";
 import CarpentryStore from "./slices/skills/carpentry-store.slice";
+import BlacksmithingStore from "./slices/skills/blacksmithing-store.slice";
 
 namespace AppStore {
   const persistConfig = {
@@ -37,6 +38,7 @@ namespace AppStore {
     cooking: CookingStore.reducers,
     carpentry: CarpentryStore.reducers,
     mining: MiningStore.reducers,
+    blacksmithing: BlacksmithingStore.reducers,
     gift: GiftStore.reducers,
     travel: TravelStore.reducers,
   });
