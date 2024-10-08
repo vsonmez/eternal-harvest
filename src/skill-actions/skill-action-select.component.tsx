@@ -5,8 +5,8 @@ import useGlobalStore from "../store/hooks/use-global-store.hook";
 import useTravelStore from "../store/hooks/use-travel-store.hook";
 import useToastrStore from "../store/hooks/use-toastr-store.hook";
 import travelConstants from "../constants/travel.constants";
-import useCarpentryStore from "../store/hooks/skills/use-carpentry-store.hook";
 import Translation from "../language/transltion";
+import useWoodcutterStore from "../store/hooks/skills/use-woodcutter-store.hook";
 
 type Props = {
   onClose: () => void;
@@ -19,7 +19,7 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
   } = useGlobalStore();
   const { currentLocation } = useTravelStore();
   const { addToastrMessage } = useToastrStore();
-  const { carpentryLevel } = useCarpentryStore();
+  const { woodcutterLevel } = useWoodcutterStore();
 
   const handleSkillAction = React.useCallback(
     (skillActionype: SkillActionTypes) => {
@@ -78,7 +78,7 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
             return;
           }
         case "carpentry":
-          if (carpentryLevel < 10) {
+          if (woodcutterLevel < 10) {
             addToastrMessage({
               type: "error",
               text: `You need to be carpentry level 10 to use carpentry`,
@@ -100,7 +100,7 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
       setSkillActionType(skillActionype);
       onClose();
     },
-    [currentLocation, onClose, setSkillActionType, addToastrMessage, carpentryLevel]
+    [currentLocation, onClose, setSkillActionType, addToastrMessage, woodcutterLevel]
   );
   return (
     <DialogComponent onClose={onClose} title={Translation.translate[language].actionList} className="skillAction">
@@ -136,10 +136,10 @@ const SkillActionSelect: React.FC<Props> = ({ onClose }) => {
           </ButtonComponent>
         </li>
         <li>
-          <ButtonComponent disabled={carpentryLevel < 10} className="flex flex-col items-center" onClick={() => handleSkillAction("carpentry")}>
+          <ButtonComponent disabled={woodcutterLevel < 10} className="flex flex-col items-center" onClick={() => handleSkillAction("carpentry")}>
             <img src="./images/carpenter.jpeg" alt="" className="w-32" />
             <span>{Translation.translate[language].carpentry}</span>
-            <span className="text-xs block text-rose-300">{Translation.translateFunctions[language].needSkillLevel("Woodcutting", 10)}</span>
+            {woodcutterLevel < 10 && <span className="text-xs block text-rose-300">{Translation.translateFunctions[language].needSkillLevel("Woodcutting", 10)}</span>}
           </ButtonComponent>
         </li>
 

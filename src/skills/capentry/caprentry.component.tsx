@@ -47,7 +47,7 @@ const Capentry = () => {
           text: Translation.translate[language].startCrafting,
           type: "info",
         });
-        decreaseHungerValue(0.1);
+        decreaseHungerValue(0.5);
         setIsBusy(true);
         startCountdown();
         play();
