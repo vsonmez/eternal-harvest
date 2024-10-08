@@ -100,7 +100,7 @@ const Mining = () => {
         });
       }
     }
-  }, [miningLevel, miningXP, miningXPToNextLevel, increaseMiningLevel, addMessage]);
+  }, [miningLevel, miningXP, miningXPToNextLevel, increaseMiningLevel, addMessage, language]);
 
   React.useEffect(() => {
     return resetMessageList;

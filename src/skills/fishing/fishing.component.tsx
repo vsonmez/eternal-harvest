@@ -58,7 +58,7 @@ const Fishing = () => {
         });
       }
     }
-  }, [fishingLevel, fishingXP, fishingXPToNextLevel, increaseFishingLevel, addMessage]);
+  }, [fishingLevel, fishingXP, fishingXPToNextLevel, increaseFishingLevel, addMessage, language]);
 
   React.useEffect(() => {
     return resetMessageList;

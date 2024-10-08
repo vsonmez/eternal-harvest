@@ -124,7 +124,7 @@ const Cooking = () => {
         });
       }
     }
-  }, [cookingLevel, cookingXP, cookingXPToNextLevel, increaseCookingLevel, addMessage]);
+  }, [cookingLevel, cookingXP, cookingXPToNextLevel, increaseCookingLevel, addMessage, language]);
 
   React.useEffect(() => {
     return resetMessageList;
