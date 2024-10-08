@@ -43,13 +43,13 @@ const useCheckHungerValueForSkill = () => {
   const checkHungerValue = React.useCallback(() => {
     if (playerHungerValue <= 5) {
       addMessage({
-        text: "You can not do that. HUNGRY!",
+        text: Translation.translate[language].youCantDoHungry,
         type: "error",
       });
       return false;
     }
     return true;
-  }, [playerHungerValue, addMessage]);
+  }, [playerHungerValue, addMessage, language]);
 
   return {
     checkHungerValueForSkillSuccess,

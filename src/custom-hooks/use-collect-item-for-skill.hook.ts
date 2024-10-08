@@ -44,7 +44,7 @@ const useCollectItemForSkill = (canUseSkill: boolean, isActive: boolean, startCo
         play();
       }
     }
-  }, [isActive, startCountdown, setIsBusy, play, decreaseHungerValue, canUseSkill, addMessage, checkHungerValue, setPlayerHandItem, playerHandItem, removeItemFromPlayerBag]);
+  }, [isActive, startCountdown, setIsBusy, play, decreaseHungerValue, canUseSkill, addMessage, checkHungerValue, setPlayerHandItem, playerHandItem, removeItemFromPlayerBag, language]);
 
   return collectItem;
 };

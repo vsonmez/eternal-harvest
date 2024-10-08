@@ -1,8 +1,13 @@
 import React from "react";
 import useMessageStore from "../../../store/hooks/use-message-store.hook";
 import usePlayerEquipmentStore from "../../../store/hooks/use-player-equipment-store.hook";
+import useGlobalStore from "../../../store/hooks/use-global-store.hook";
+import Translation from "../../../language/transltion";
 
 const useCheckFishingRod = () => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const { addMessage } = useMessageStore();
   const { playerHandItem } = usePlayerEquipmentStore();
 
@@ -20,7 +25,7 @@ const useCheckFishingRod = () => {
   React.useEffect(() => {
     if (!hasFishgingRod) {
       addMessage({
-        text: "You need a Fishing Rod to collect fish.",
+        text: Translation.translateFunctions[language].youNeedItemForSkill(`${language === "en" ? "Fishing Rod" : "Olta"}`),
         type: "error",
       });
     }

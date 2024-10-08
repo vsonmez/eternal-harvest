@@ -1,8 +1,13 @@
 import React from "react";
 import usePlayerEquipmentStore from "../../../store/hooks/use-player-equipment-store.hook";
 import useMessageStore from "../../../store/hooks/use-message-store.hook";
+import useGlobalStore from "../../../store/hooks/use-global-store.hook";
+import Translation from "../../../language/transltion";
 
 const useCheckPickAxe = () => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const { addMessage } = useMessageStore();
   const { playerHandItem } = usePlayerEquipmentStore();
 
@@ -20,7 +25,7 @@ const useCheckPickAxe = () => {
   React.useEffect(() => {
     if (!hasPickAxe) {
       addMessage({
-        text: "You need a Pickaxe to collect ore.",
+        text: Translation.translateFunctions[language].youNeedItemForSkill(`${language === "en" ? "Pickaxe" : "Kazma"}`),
         type: "error",
       });
     }

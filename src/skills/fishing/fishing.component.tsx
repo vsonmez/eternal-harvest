@@ -8,13 +8,12 @@ import itemDefList from "../../items/item-def.list";
 import getExtraItemByLevel from "../../utils/get-extra-item-by-level.util";
 import ButtonComponent from "../../ui/button.component";
 import useCollectItemForSkill from "../../custom-hooks/use-collect-item-for-skill.hook";
+import Translation from "../../language/transltion";
 
 const Fishing = () => {
   const [isAutoFishing, setIsAutoFishing] = React.useState(false);
-  const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, playerBag, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount } = useSkill(
-    fishingSound,
-    fishingConstant.counterLimit
-  );
+  const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, playerBag, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount, language } =
+    useSkill(fishingSound, fishingConstant.counterLimit);
 
   const canUseFishing = useCheckFishingRod();
   const collectFish = useCollectItemForSkill(canUseFishing, isActive, startCountdown, play);
@@ -24,9 +23,9 @@ const Fishing = () => {
     if (count === 0 && isActive) {
       setIsBusy(false);
       if (checkHungerValueForSkillSuccess()) {
-        const { extraItemAmountFromTool, extraItemsFromToolMessage } = calculateExtraItemAmount();
+        const { extraItemAmountFromTool } = calculateExtraItemAmount();
         const luckPoint = Math.min(fishingLevel, fishingConstant.bonusLimit);
-        const { extraItem, extraItemMessage } = getExtraItemByLevel(luckPoint);
+        const { extraItem } = getExtraItemByLevel(luckPoint);
         const itemAmount = 1 + extraItem + extraItemAmountFromTool;
 
         increaseFishingXP(itemAmount);
@@ -36,7 +35,7 @@ const Fishing = () => {
         });
 
         addMessage({
-          text: `You harvested ${itemAmount} raw fish/s. ${extraItemsFromToolMessage} ${extraItemMessage}`,
+          text: Translation.translateFunctions[language].youHarvested(itemDefList.rawFish.name, itemAmount),
           type: "success",
         });
       } else {
@@ -54,7 +53,7 @@ const Fishing = () => {
       if (fishingXP >= fishingXPToNextLevel) {
         increaseFishingLevel();
         addMessage({
-          text: `Fishing level increased to ${fishingLevel + 1}`,
+          text: `${Translation.translate[language].levelIncreased}: ${Translation.translate[language].fishing} ${fishingLevel + 1}`,
           type: "perfect",
         });
       }
@@ -70,28 +69,28 @@ const Fishing = () => {
     <div className="border border-gray-500 p-2 fishing flex flex-col gap-2">
       <div className="bg-black/70 p-2 flex items-center justify-between gap-1">
         <h3>
-          Level: {fishingLevel}/{fishingConstant.levelLimit}
+          {Translation.translate[language].level}: {fishingLevel}/{fishingConstant.levelLimit}
         </h3>
         <h3>
           XP: {fishingXP}/{fishingXPToNextLevel}
         </h3>
       </div>
       <div className="bg-black/70 p-2 flex flex-col gap-1">
-        <h2>Fishing</h2>
-        <h3>Fish Amount: {playerBag["rawFish"]?.amount || 0}</h3>
+        <h2>{Translation.translate[language].fishing}</h2>
+        <h3>
+          {Translation.translate[language].amount}: {playerBag["rawFish"]?.amount || 0}
+        </h3>
         {hasAutoFishing && (
           <label className="flex items-center gap-2">
             <input type="checkbox" checked={isAutoFishing} onChange={() => setIsAutoFishing(!isAutoFishing)} />
-            <span>Auto Fishing</span>
+            <span>{Translation.translate[language].autoFishing}</span>
           </label>
         )}
         <ButtonComponent disabled={!canUseFishing} onClick={collectFish}>
-          {isActive ? `Harvesting ${count}` : "Harvest Fish"}
+          {isActive ? `${Translation.translate[language].harvesting} ${count}` : Translation.translate[language].harvest}
         </ButtonComponent>
       </div>
-      <div className="bg-black/70 p-2">
-        +1 raw fish {fishingLevel}% chance. Max {fishingConstant.bonusLimit}%
-      </div>
+      <div className="bg-black/70 p-2">{Translation.translateFunctions[language].extraItemChance(Translation.translate[language].rawFish, fishingLevel)}</div>
     </div>
   );
 };

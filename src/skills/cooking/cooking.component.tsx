@@ -14,11 +14,15 @@ import useGlobalStore from "../../store/hooks/use-global-store.hook";
 import itemDefList from "../../items/item-def.list";
 import useSound from "../../custom-hooks/use-sound.hook";
 import sound from "../../sounds/cooking.mp3";
+import Translation from "../../language/transltion";
 
 const Cooking = () => {
   const { play, pause } = useSound({ sound });
   const [isAutoCooking, setIsAutoCooking] = React.useState(false);
-  const { setIsBusy } = useGlobalStore();
+  const {
+    setIsBusy,
+    getGlobal: { language },
+  } = useGlobalStore();
   const { decreaseHungerValue } = usePlayerHungerStore();
   const { playerHandItem } = usePlayerEquipmentStore();
   const { cookingLevel, cookingXP, cookingXPToNextLevel, increaseCookingXP, increaseCookingLevel, hasAutoCooking } = useCookingStore();
@@ -32,7 +36,7 @@ const Cooking = () => {
     if (!playerHandItem || playerHandItem.defName !== "fryingPan") {
       setIsAutoCooking(false);
       addMessage({
-        text: "You need to be holding a frying pan to cook something.",
+        text: Translation.translateFunctions[language].youNeedItemForSkill("Frying Pan"),
         type: "error",
       });
       return;
@@ -40,7 +44,7 @@ const Cooking = () => {
     if (!isActive) {
       if (selectedItem) {
         addMessage({
-          text: "You start cooking...",
+          text: Translation.translate[language].youStartCooking,
           type: "info",
         });
         decreaseHungerValue(0.1);
@@ -49,7 +53,7 @@ const Cooking = () => {
         play();
       } else {
         addMessage({
-          text: "You need to select an item to cook.",
+          text: Translation.translate[language].needItemToCraft,
           type: "error",
         });
         setIsAutoCooking(false);
@@ -94,12 +98,12 @@ const Cooking = () => {
           amount: 1,
         });
         addMessage({
-          text: `Cooking is done. You got ${itemDefList[selectedItem.processedItem].name}.`,
+          text: Translation.translateFunctions[language].youCrafted(itemDefList[selectedItem.processedItem].name, 1),
           type: "success",
         });
       } else {
         addMessage({
-          text: "Cooking failed. You burned the food!",
+          text: Translation.translate[language].craftingFailed,
           type: "warning",
         });
       }
@@ -115,7 +119,7 @@ const Cooking = () => {
       if (cookingXP >= cookingXPToNextLevel) {
         increaseCookingLevel();
         addMessage({
-          text: `Begging level increased to ${cookingLevel + 1}`,
+          text: `${Translation.translate[language].levelIncreased}: ${Translation.translate[language].cooking} ${cookingLevel + 1}`,
           type: "perfect",
         });
       }
@@ -131,16 +135,16 @@ const Cooking = () => {
     <div className="border border-gray-500 p-2 cooking flex flex-col gap-2">
       <div className="bg-black/70 p-2 flex items-center justify-between gap-1">
         <h3>
-          Level: {cookingLevel}/{cookingConstant.levelLimit}
+          {Translation.translate[language].level}: {cookingLevel}/{cookingConstant.levelLimit}
         </h3>
         <h3>
           XP: {cookingXP}/{cookingXPToNextLevel}
         </h3>
       </div>
       <div className="bg-black/70 p-2 flex flex-col gap-1 text-center">
-        <h2>Cooking</h2>
+        <h2>{Translation.translate[language].cooking}</h2>
         <select value={selectedItem?.defName} className="w-full bg-black/70" disabled={cookableItems.length === 0} onChange={onSelectItem}>
-          <option value={undefined}>Select Item to cook</option>
+          <option value={undefined}>{Translation.translate[language].selectItemToCraft}</option>
           {cookableItems.map((item) => (
             <option value={item.defName} key={item.defName}>
               {item.name} ({item.amount})
@@ -150,19 +154,13 @@ const Cooking = () => {
         {hasAutoCooking && (
           <label className="flex items-center gap-2">
             <input type="checkbox" checked={isAutoCooking} onChange={() => setIsAutoCooking(!isAutoCooking)} />
-            <span>Auto Cooking</span>
+            <span>{Translation.translate[language].autoCooking}</span>
           </label>
         )}
         <ButtonComponent disabled={cookableItems.length === 0} onClick={cooking}>
-          {isActive ? `Cooking ${count}` : "Start Cooking"}
+          {isActive ? `${Translation.translate[language].cooking} ${count}` : Translation.translate[language].craft}
         </ButtonComponent>
       </div>
-      {/* <div className="bg-black/70 p-2 flex flex-col gap-1">
-        <span>Begging level affects the amount of items gained.</span>
-        <span>
-          +<FixedNumberComponent number={deceptionBonus} />% success bonus from Deception.
-        </span>
-      </div> */}
     </div>
   );
 };

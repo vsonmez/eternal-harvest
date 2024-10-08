@@ -1,8 +1,13 @@
 import React from "react";
 import usePlayerEquipmentStore from "../../../store/hooks/use-player-equipment-store.hook";
 import useMessageStore from "../../../store/hooks/use-message-store.hook";
+import useGlobalStore from "../../../store/hooks/use-global-store.hook";
+import Translation from "../../../language/transltion";
 
 const useCheckWoodcutterAxe = () => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const { addMessage } = useMessageStore();
   const { playerHandItem } = usePlayerEquipmentStore();
 
@@ -20,7 +25,7 @@ const useCheckWoodcutterAxe = () => {
   React.useEffect(() => {
     if (!hasWoodcuttersAxe) {
       addMessage({
-        text: "You need a Woodcutter's Axe to collect wood.",
+        text: Translation.translateFunctions[language].youNeedItemForSkill(`${language === "en" ? "Woodcutters Axe" : "Oduncu Baltası"}`),
         type: "error",
       });
     }

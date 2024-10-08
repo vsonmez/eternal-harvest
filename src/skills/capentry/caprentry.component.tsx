@@ -14,11 +14,15 @@ import sound from "../../sounds/carpentry.mp3";
 import useSound from "../../custom-hooks/use-sound.hook";
 import itemDefList from "../../items/item-def.list";
 import getRandonNumber from "../../utils/get-random-number.util";
+import Translation from "../../language/transltion";
 
 const Capentry = () => {
   const { play, pause } = useSound({ sound });
   const [isAutoCarpentry, setIsAutoCarpentry] = React.useState(false);
-  const { setIsBusy } = useGlobalStore();
+  const {
+    setIsBusy,
+    getGlobal: { language },
+  } = useGlobalStore();
   const { decreaseHungerValue } = usePlayerHungerStore();
   const { playerHandItem } = usePlayerEquipmentStore();
   const [selectedItem, setSelectedItem] = React.useState<BagItem | undefined>(undefined);
@@ -32,7 +36,7 @@ const Capentry = () => {
     if (!playerHandItem || playerHandItem.defName !== "carpenterHammer") {
       setIsAutoCarpentry(false);
       addMessage({
-        text: "You need to be holding a carpenter hammer to craft something.",
+        text: Translation.translate[language].needCarpenterhammer,
         type: "error",
       });
       return;
@@ -40,7 +44,7 @@ const Capentry = () => {
     if (!isActive) {
       if (selectedItem) {
         addMessage({
-          text: "You start crafting...",
+          text: Translation.translate[language].startCrafting,
           type: "info",
         });
         decreaseHungerValue(0.1);
@@ -49,7 +53,7 @@ const Capentry = () => {
         play();
       } else {
         addMessage({
-          text: "You need to select an item to craft.",
+          text: Translation.translate[language].needItemToCraft,
           type: "error",
         });
         setIsAutoCarpentry(false);
@@ -94,12 +98,12 @@ const Capentry = () => {
           amount: 1,
         });
         addMessage({
-          text: `Crafting is done. You got ${itemDefList[selectedItem.processedItem].name}.`,
+          text: Translation.translateFunctions[language].youCrafted(Translation.translate[language].plank, 1),
           type: "success",
         });
       } else {
         addMessage({
-          text: "Crafting failed. Materials were broken into pieces.",
+          text: Translation.translate[language].craftingFailed,
           type: "warning",
         });
       }
@@ -115,12 +119,12 @@ const Capentry = () => {
       if (carpentryXP >= carpentryXPToNextLevel) {
         increaseCarpentryLevel();
         addMessage({
-          text: `Carpentry level increased to ${carpentryLevel + 1}`,
+          text: `${Translation.translate[language].levelIncreased}: ${Translation.translate[language].carpentry} ${carpentryLevel + 1}`,
           type: "perfect",
         });
       }
     }
-  }, [carpentryLevel, carpentryXP, carpentryXPToNextLevel, increaseCarpentryLevel, addMessage]);
+  }, [carpentryLevel, carpentryXP, carpentryXPToNextLevel, increaseCarpentryLevel, addMessage, language]);
 
   React.useEffect(() => {
     return resetMessageList;
@@ -131,16 +135,16 @@ const Capentry = () => {
     <div className="border border-gray-500 p-2 carpenter flex flex-col gap-2">
       <div className="bg-black/70 p-2 flex items-center justify-between gap-1">
         <h3>
-          Level: {carpentryLevel}/{carpentryConstant.levelLimit}
+          {Translation.translate[language].level}: {carpentryLevel}/{carpentryConstant.levelLimit}
         </h3>
         <h3>
           XP: {carpentryXP}/{carpentryXPToNextLevel}
         </h3>
       </div>
       <div className="bg-black/70 p-2 flex flex-col gap-1 text-center">
-        <h2>Carpentry</h2>
+        <h2>{Translation.translate[language].carpentry}</h2>
         <select value={selectedItem?.defName} className="w-full bg-black/70" disabled={carpentryMaterials.length === 0} onChange={onSelectItem}>
-          <option value={undefined}>Select Item to craft</option>
+          <option value={undefined}>{Translation.translate[language].selectItemToCraft}</option>
           {carpentryMaterials.map((item) => (
             <option value={item.defName} key={item.defName}>
               {item.name} ({item.amount})
@@ -150,11 +154,11 @@ const Capentry = () => {
         {hasAutoCarpentry && (
           <label className="flex items-center gap-2">
             <input type="checkbox" checked={isAutoCarpentry} onChange={() => setIsAutoCarpentry(!isAutoCarpentry)} />
-            <span>Auto Cooking</span>
+            <span>{Translation.translate[language].autoCarpentry}</span>
           </label>
         )}
         <ButtonComponent disabled={carpentryMaterials.length === 0} onClick={crafting}>
-          {isActive ? `Crafting ${count}` : "Start Crafting"}
+          {isActive ? `${Translation.translate[language].crafting} ${count}` : Translation.translate[language].craft}
         </ButtonComponent>
       </div>
     </div>

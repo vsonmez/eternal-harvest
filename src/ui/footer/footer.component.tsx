@@ -9,10 +9,14 @@ import { ArchiveBoxIcon, ArrowsUpDownIcon, BoltIcon, BuildingStorefrontIcon, Spa
 import TravelComponent from "../../travel/travel.component";
 import useTravelStore from "../../store/hooks/use-travel-store.hook";
 import useMessageStore from "../../store/hooks/use-message-store.hook";
-import travelConstants from "../../constants/travel.constants";
 import PremiumMarketComponent from "../../premium-market/premium-market.component";
+import useGlobalStore from "../../store/hooks/use-global-store.hook";
+import Translation from "../../language/transltion";
 
 const Footer = () => {
+  const {
+    getGlobal: { language },
+  } = useGlobalStore();
   const { currentLocation } = useTravelStore();
   const { addMessage } = useMessageStore();
   const initialShowState: { [key in DialogTypes]: boolean } = React.useMemo(() => {
@@ -43,7 +47,7 @@ const Footer = () => {
     (key: DialogTypes) => {
       if (key === "market" && currentLocation !== "marketPlace") {
         addMessage({
-          text: `You can only see the Market in the ${travelConstants.travelLocations.marketPlace}.`,
+          text: Translation.translateFunctions[language].youCanSeeMarket(Translation.translate[language].market),
           type: "warning",
         });
         return;
@@ -53,7 +57,7 @@ const Footer = () => {
         [key]: !show[key],
       });
     },
-    [show, initialShowState, currentLocation, addMessage]
+    [show, initialShowState, currentLocation, addMessage, language]
   );
 
   const handleClose = React.useCallback(() => {

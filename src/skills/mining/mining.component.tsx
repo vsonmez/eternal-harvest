@@ -10,10 +10,11 @@ import itemDefList from "../../items/item-def.list";
 import ButtonComponent from "../../ui/button.component";
 import getOre from "../../utils/get-ore.util";
 import getRandonNumber from "../../utils/get-random-number.util";
+import Translation from "../../language/transltion";
 
 const Mining = () => {
   const [isAutoMining, setIsAutoMining] = React.useState(false);
-  const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, pause, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount } = useSkill(
+  const { addItemToPlayerBag, addMessage, checkHungerValueForSkillSuccess, count, isActive, play, pause, resetMessageList, setIsBusy, startCountdown, calculateExtraItemAmount, language } = useSkill(
     sound,
     miningConstant.counterLimit
   );
@@ -42,9 +43,9 @@ const Mining = () => {
         const success = getRandonNumber(1, 100) <= successChance;
 
         if (success) {
-          const { extraItemAmountFromTool, extraItemsFromToolMessage } = calculateExtraItemAmount();
+          const { extraItemAmountFromTool } = calculateExtraItemAmount();
           const luckPoint = Math.min(miningLevel, miningConstant.bonusLimit);
-          const { extraItem, extraItemMessage } = getExtraItemByLevel(luckPoint);
+          const { extraItem } = getExtraItemByLevel(luckPoint);
           const itemAmount = extraItem + extraItemAmountFromTool;
 
           let oreListLevel = 10;
@@ -68,12 +69,12 @@ const Mining = () => {
           });
           increaseMiningXP(Math.round(totalAmount / 2));
           addMessage({
-            text: `You harvested ${itemDefList[oreDefName].name} x${totalAmount}. ${extraItemsFromToolMessage} ${extraItemMessage}`,
+            text: Translation.translateFunctions[language].youHarvested(itemDefList[oreDefName].name, totalAmount),
             type: "success",
           });
         } else {
           addMessage({
-            text: "You failed to harvest anything.",
+            text: Translation.translate[language].youDidntGetAnything,
             type: "error",
           });
           increaseMiningXP(1);
@@ -94,7 +95,7 @@ const Mining = () => {
       if (miningXP >= miningXPToNextLevel) {
         increaseMiningLevel();
         addMessage({
-          text: `Mining level increased to ${miningLevel + 1}`,
+          text: `${Translation.translate[language].levelIncreased}: ${Translation.translate[language].fishing} ${miningLevel + 1}`,
           type: "perfect",
         });
       }
@@ -110,27 +111,25 @@ const Mining = () => {
     <div className="border border-gray-500 p-2 mining flex flex-col gap-2">
       <div className="bg-black/70 p-2 flex items-center justify-between gap-1">
         <h3>
-          Level: {miningLevel}/{miningConstant.levelLimit}
+          {Translation.translate[language].level}: {miningLevel}/{miningConstant.levelLimit}
         </h3>
         <h3>
           XP: {miningXP}/{miningXPToNextLevel}
         </h3>
       </div>
       <div className="bg-black/70 p-2 flex flex-col gap-1">
-        <h2>Mining</h2>
+        <h2>{Translation.translate[language].mining}</h2>
         {hasAutoMining && (
           <label className="flex items-center gap-2">
             <input type="checkbox" checked={isAutoMining} onChange={() => setIsAutoMining(!isAutoMining)} />
-            <span>Auto Woodcutting</span>
+            <span>{Translation.translate[language].autoMining}</span>
           </label>
         )}
         <ButtonComponent disabled={!canUseMining} onClick={collectWood}>
-          {isActive ? `Harvesting ${count}` : "Harvest Ore"}
+          {isActive ? `${Translation.translate[language].harvesting} ${count}` : Translation.translate[language].harvest}
         </ButtonComponent>
       </div>
-      <div className="bg-black/70 p-2">
-        +1 ore {miningLevel}% chance. Max {miningConstant.bonusLimit}%
-      </div>
+      <div className="bg-black/70 p-2">{Translation.translateFunctions[language].extraItemChance(Translation.translate[language].ore, miningLevel)}</div>
     </div>
   );
 };

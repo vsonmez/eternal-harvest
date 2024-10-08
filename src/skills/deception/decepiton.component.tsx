@@ -39,7 +39,7 @@ const Deception: React.FC<Props> = ({ checkEXPgain }) => {
         });
       }
     }
-  }, [deceptionLevel, deceptionXP, deceptionXPToNextLevel, increaseDeceptionLevel, addMessage]);
+  }, [deceptionLevel, deceptionXP, deceptionXPToNextLevel, increaseDeceptionLevel, addMessage, language]);
 
   return (
     <div className=" flex flex-col gap-2 text-xs text-gray-300">

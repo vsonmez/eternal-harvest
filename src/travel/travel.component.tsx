@@ -32,7 +32,7 @@ const Travel: React.FC<Props> = ({ onClose }) => {
       if (currentLocation === location) {
         addToastrMessage({
           type: "info",
-          text: "You are already here",
+          text: Translation.translate[language].alreadyHere,
         });
         return;
       }
@@ -45,11 +45,11 @@ const Travel: React.FC<Props> = ({ onClose }) => {
       } else {
         addToastrMessage({
           type: "error",
-          text: "You are too hungry to travel",
+          text: Translation.translate[language].tooHungryToTravel,
         });
       }
     },
-    [currentLocation, decreaseHungerValue, playerHungerValue, selectedLocation, setIsBusy, startCountdown, setDestination, addToastrMessage]
+    [currentLocation, decreaseHungerValue, playerHungerValue, selectedLocation, setIsBusy, startCountdown, setDestination, addToastrMessage, language]
   );
 
   React.useEffect(() => {
@@ -59,7 +59,7 @@ const Travel: React.FC<Props> = ({ onClose }) => {
       setDestination(undefined);
       setSkillActionType(undefined);
       addMessage({
-        text: `Arrived to ${travelConstants.travelLocations[selectedLocation]}`,
+        text: Translation.translateFunctions[language].arrivedAt(Translation.locationsTranslations[language][selectedLocation]),
         type: "info",
       });
       onClose();
@@ -73,13 +73,13 @@ const Travel: React.FC<Props> = ({ onClose }) => {
         <ul className="flex flex-col gap-3 w-80 items-center">
           <li className="text-xs flex flex-col gap-1 items-center">
             <span>{Translation.translateFunctions[language].youAreIn(travelConstants.travelLocations[currentLocation])}</span>
-            <span>{Translation.translateFunctions[language].youWillArriveIn(count)}</span>
+            {isActive && <span className="text-base bg-yellow-500 text-black px-2">{Translation.translateFunctions[language].youWillArriveIn(count)}</span>}
           </li>
           {destination && (
             <li className="flex gap-2 items-center">
-              <span>{travelConstants.travelLocations[currentLocation]}</span>
+              <span>{Translation.locationsTranslations[language][currentLocation]}</span>
               <ArrowRightIcon className="w-3 h-3 inline-block" />
-              <span>{travelConstants.travelLocations[selectedLocation!]}.</span>
+              <span>{Translation.locationsTranslations[language][selectedLocation]}</span>
             </li>
           )}
           <li>
@@ -133,7 +133,9 @@ const Travel: React.FC<Props> = ({ onClose }) => {
           </li>
           <li>
             <ButtonComponent disabled={currentLocation === "mines"} className="w-72" onClick={() => handleTravel("mines")}>
-              <span>{Translation.locationsTranslations[language].mines} (0.25 hunger)</span>
+              <span>
+                {Translation.locationsTranslations[language].mines} (0.25 {Translation.translate[language].hunger})
+              </span>
             </ButtonComponent>
           </li>
         </ul>

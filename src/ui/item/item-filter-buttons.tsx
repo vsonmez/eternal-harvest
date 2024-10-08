@@ -33,7 +33,7 @@ const ItemfilterButtons: React.FC<Props> = ({ filterItems, isInBag }) => {
         {Translation.translate[language].tools}
       </ButtonComponent>
       {isInBag && (
-        <ButtonComponent className={`${selectedFilter === "rawMaterial" ? "bg-gray-600" : ""}`} onClick={() => handleFilter("rawMaterial")}>
+        <ButtonComponent className={`border-l-0 ${selectedFilter === "rawMaterial" ? "bg-gray-600" : ""}`} onClick={() => handleFilter("rawMaterial")}>
           {Translation.translate[language].materials}
         </ButtonComponent>
       )}

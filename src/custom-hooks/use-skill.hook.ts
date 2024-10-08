@@ -16,7 +16,10 @@ const useSkill = (sound: "*.mp3", counterLimit: number, playbackRate?: number, l
   const itemDef = React.useMemo(() => playerHandItem && getItemDef(playerHandItem.defName), [playerHandItem]);
   const countdownTime = useGetSkillCountdownTime(itemDef, woodcutterConstant.counterLimit);
   const { count, isActive, startCountdown } = useCountdown(countdownTime);
-  const { setIsBusy } = useGlobalStore();
+  const {
+    setIsBusy,
+    getGlobal: { language },
+  } = useGlobalStore();
   const { play, pause } = useSound({ sound, playbackRate, loop });
   const { addMessage, resetMessageList } = useMessageStore();
   const { addItemToPlayerBag, playerBag } = usePlayerBagStore();
@@ -36,6 +39,7 @@ const useSkill = (sound: "*.mp3", counterLimit: number, playbackRate?: number, l
     playerBag,
     checkHungerValueForSkillSuccess,
     calculateExtraItemAmount,
+    language,
   };
 };
 export default useSkill;

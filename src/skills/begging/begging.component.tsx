@@ -15,7 +15,6 @@ import usePlayerBagStore from "../../store/hooks/use-player-bag-store.hook";
 import getRandonNumber from "../../utils/get-random-number.util";
 import DecepitonComponent from "../deception/decepiton.component";
 import useDeceptionStore from "../../store/hooks/skills/use-deception-store.hook";
-import FixedNumberComponent from "../../ui/fixed-number.component";
 import Translation from "../../language/transltion";
 
 const Begging = () => {
@@ -28,7 +27,7 @@ const Begging = () => {
   const { playerHandItem } = usePlayerEquipmentStore();
   const { addMessage, resetMessageList } = useMessageStore();
   const { count, isActive, startCountdown } = useCountdown(beggingConstant.counterLimit);
-  const { decreaseHungerValue } = usePlayerHungerStore();
+  const { decreaseHungerValue, playerHungerValue } = usePlayerHungerStore();
   const {
     setIsBusy,
     getGlobal: { language },
@@ -41,6 +40,14 @@ const Begging = () => {
       setIsAutoBegging(false);
       addMessage({
         text: Translation.translate[language].yourHandMustBeEmpty,
+        type: "warning",
+      });
+      return;
+    }
+    if (playerHungerValue === 0) {
+      setIsAutoBegging(false);
+      addMessage({
+        text: Translation.translate[language].youCantDoHungry,
         type: "warning",
       });
       return;
@@ -58,7 +65,7 @@ const Begging = () => {
       startCountdown();
       play();
     }
-  }, [playerHandItem, addMessage, decreaseHungerValue, isActive, startCountdown, setIsBusy, play, checkDeceptionEXPgain]);
+  }, [playerHandItem, addMessage, decreaseHungerValue, isActive, startCountdown, setIsBusy, play, checkDeceptionEXPgain, language, playerHungerValue]);
 
   React.useEffect(() => {
     if (count === 0 && isActive) {
@@ -87,7 +94,9 @@ const Begging = () => {
           type: "info",
         });
       }
-      increaseBeggingXP(1);
+      if (playerHungerValue >= 5) {
+        increaseBeggingXP(1);
+      }
       if (beggingLevel >= 10) {
         setCheckDeceptionEXPgain(true);
       }
@@ -109,7 +118,7 @@ const Begging = () => {
         });
       }
     }
-  }, [beggingLevel, beggingXP, beggingXPToNextLevel, increaseBeggingLevel, addMessage]);
+  }, [beggingLevel, beggingXP, beggingXPToNextLevel, increaseBeggingLevel, addMessage, language]);
 
   React.useEffect(() => {
     return resetMessageList;
@@ -143,7 +152,7 @@ const Begging = () => {
       </div>
       <div className="bg-black/70 p-2 flex flex-col gap-1">
         <span>{Translation.translate[language].beggingLevelaffects}</span>
-        <span>{Translation.translateFunctions[language].skillBonus(Translation.translate[language].decepiton, Number(deceptionBonus).toFixed(2))}</span>
+        <span>{Translation.translateFunctions[language].skillSuccessBonus(Translation.translate[language].decepiton, Number(deceptionBonus).toFixed(2))}</span>
       </div>
     </div>
   );

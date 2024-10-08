@@ -38,31 +38,31 @@ const HeaderHunger: React.FC<Props> = ({ showText }) => {
   React.useEffect(() => {
     if (playerHungerValue <= 50 && playerHungerValue > 49) {
       addMessage({
-        text: "You are starting to get HUNGRY!",
+        text: Translation.hungerMessages.hungry[language],
         type: "error",
       });
     }
     if (playerHungerValue <= 30 && playerHungerValue > 29) {
       addMessage({
-        text: "You are starting to get HUNGRIER!",
+        text: Translation.hungerMessages.hungrier[language],
         type: "error",
       });
     }
     if (playerHungerValue <= 20 && playerHungerValue > 19) {
       addMessage({
-        text: "You are starting to get HUNGRIEST!",
+        text: Translation.hungerMessages.hungriest[language],
         type: "error",
       });
     }
     if (playerHungerValue <= 10 && playerHungerValue > 9) {
       addMessage({
-        text: "Your stomach is starting to hurt from hunger!",
+        text: Translation.hungerMessages.stomachStarting[language],
         type: "error",
       });
     }
     if (playerHungerValue <= 5) {
       addMessage({
-        text: "YOU ARE STARVING!",
+        text: Translation.hungerMessages.starving[language],
         type: "error",
       });
     }
