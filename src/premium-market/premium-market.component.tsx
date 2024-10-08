@@ -9,6 +9,7 @@ import useCookingStore from "../store/hooks/skills/use-cooking-store.hook";
 import useMiningStore from "../store/hooks/skills/use-mining-store.hook";
 import useGlobalStore from "../store/hooks/use-global-store.hook";
 import Translation from "../language/transltion";
+import useCarpentryStore from "../store/hooks/skills/use-carpentry-store.hook";
 
 type Props = {
   onClose: () => void;
@@ -20,6 +21,7 @@ const PremiumMarket: React.FC<Props> = ({ onClose }) => {
   const { hasAutoWoodcutting, setAutoWoodcutting } = useWoodcutterStore();
   const { hasAutoCooking, setAutoCooking } = useCookingStore();
   const { hasAutoMining, setHasAutoMining } = useMiningStore();
+  const { setAutoCarpentry, hasAutoCarpentry } = useCarpentryStore();
   const { addToastrMessage } = useToastrStore();
   const {
     getGlobal: { language },
@@ -120,6 +122,25 @@ const PremiumMarket: React.FC<Props> = ({ onClose }) => {
               {!hasAutoMining && <span>{Translation.translate[language].freeForTest}</span>}
             </span>
             {hasAutoMining && <span>{Translation.translate[language].alreadyBought}</span>}
+          </ButtonComponent>
+        </li>
+        <li>
+          <ButtonComponent
+            disabled={hasAutoCarpentry}
+            className="w-full flex flex-col items-center gap-1"
+            onClick={() => {
+              setAutoCarpentry(true);
+              addToastrMessage({
+                type: "success",
+                text: "You bought the auto carpentry!",
+              });
+            }}
+          >
+            <span className="flex items-center gap-2 text-lg">
+              <span>{Translation.translate[language].autoCarpentry}</span>
+              {!hasAutoCarpentry && <span>{Translation.translate[language].freeForTest}</span>}
+            </span>
+            {hasAutoCarpentry && <span>{Translation.translate[language].alreadyBought}</span>}
           </ButtonComponent>
         </li>
       </ul>
